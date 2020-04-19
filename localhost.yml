@@ -1,0 +1,45 @@
+  
+---
+- name: set up my mac
+  hosts: localhost
+  connection: local
+  vars:
+    brew_pkgs:
+      - tree
+      - wget
+      - bat
+      - fd
+      - ripgrep
+    brew_cask_apps:
+      - vagrant
+      - virtualbox
+      - docker
+      - sublime-text
+      - visual-studio-code
+      - firefox
+      - karabiner
+      - shiftit
+      - slack
+      - skitch
+      - kindle
+      - postman
+      - cheatsheet
+      - macwinzipper
+      - clipy
+      - sequel-pro
+      
+  tasks:
+    - name: Update homebrew itself first
+      homebrew: update_homebrew=yes
+
+    - name: brew pkg install
+      homebrew: name {{ item }}
+      with_items: "{{ brew_pkgs }}"
+
+    - name: brew cask app install
+      homebrew_cask:
+        name: "{{ item }}"
+        state: "present"
+        install_options: "appdir=/Applications"
+        accept_external_apps: yes
+      with_items: "{{ brew_cask_apps }}"
