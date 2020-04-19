@@ -10,6 +10,8 @@
       - bat
       - fd
       - ripgrep
+      - starship
+      - exa
     brew_cask_apps:
       - vagrant
       - virtualbox
@@ -29,6 +31,9 @@
       - sequel-pro
       
   tasks:
+    - name: Install First Homebrew
+      shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
     - name: Update homebrew itself first
       homebrew: update_homebrew=yes
 
