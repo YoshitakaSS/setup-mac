@@ -29,6 +29,7 @@
       - macwinzipper
       - clipy
       - sequel-pro
+      - alfred
       
   tasks:
     - name: Install First Homebrew
