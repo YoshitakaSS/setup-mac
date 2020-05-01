@@ -73,8 +73,10 @@ alias docup='docker-compose up -d'
 alias docdown='docker-compose down'
 # コンテナのログ確認 {container_id}
 alias dlog='docker logs'
+# キャッシュありbuild
+alias docupd='docker-compose build'
 # キャッシュ無視でbuild
-alias docupd='docker-compose build --no-cache'
+alias docupdd='docker-compose build --no-cache'
 
 ##################
 # その他
