@@ -1,4 +1,7 @@
 /Users/ys/.bashrc
+
+HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '
+
 ###############
 # エイリアス設定
 ###############
@@ -92,6 +95,9 @@ alias figre='find . -type f | grep'
 # 直下ディレクトリ全てのファイル内の文章検索
 alias stgre='find . -type f | xargs grep'
 
+# catだろうがbatで開く
+alias cat='bat'
+
 # GitHubディレクトリに移動する
 alias cgit='cd /Users/ys/GitHub'
 
@@ -116,3 +122,4 @@ alias ssh-config-update="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config"
 
 alias term='echo -ne "\033]1337;SetProfile=$(peco ~/.iterm_profile)\a"'
 
+alias catssh='cat ~/.ssh/config'
