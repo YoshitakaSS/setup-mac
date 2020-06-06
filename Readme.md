@@ -27,3 +27,9 @@ lrwxr-xr-x    42 user staff 2020-04-29 12:05 .iterm_profile -> ./repo/setup-mac/
 
 lrwxr-xr-x    35 user staff 2020-04-29 17:17 .bashrc -> ./repo/setup-mac/dotfiles/.bashrc
 ```
+
+### Export VSCode extension
+
+```bash
+code --list-extensions | xargs -L 1 echo code --install-extension
+```
