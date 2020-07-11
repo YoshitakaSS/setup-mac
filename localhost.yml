@@ -30,7 +30,8 @@
       - clipy
       - sequel-pro
       - alfred
-      
+      - tableplus
+
   tasks:
     - name: Install brew cask
       shell: brew install cask
