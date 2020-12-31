@@ -5,13 +5,48 @@
   connection: local
   vars:
     brew_pkgs:
-      - tree
-      - wget
-      - bat
-      - fd
-      - ripgrep
-      - starship
-      - exa
+      -  autoconf
+      -  bat
+      -  cask
+      -  composer
+      -  emacs
+      -  exa
+      -  fd
+      -  gdbm
+      -  gettext
+      -  gh
+      -  ghq
+      -  gmp
+      -  gnutls
+      -  heroku
+      -  heroku-node
+      -  libevent
+      -  libffi
+      -  libidn2
+      -  libtasn1
+      -  libunistring
+      -  libyaml
+      -  lua
+      -  nettle
+      -  openssl@1.1
+      -  p11-kit
+      -  pcre2
+      -  peco
+      -  perl
+      -  pkg-config
+      -  protobuf
+      -  pyenv
+      -  python
+      -  python@3.8
+      -  readline
+      -  ripgrep
+      -  ruby
+      -  sqlite
+      -  starship
+      -  tree
+      -  unbound
+      -  vim
+      -  xz
     brew_cask_apps:
       - vagrant
       - virtualbox
