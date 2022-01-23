@@ -1,6 +1,6 @@
-/Users/ys/.bashrc
+# /Users/ys/.bashrc
 
-HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '
+# HISTTIMEFORMAT='%Y/%m/%d %H:%M:%S '
 
 ###############
 # エイリアス設定
@@ -51,13 +51,6 @@ alias gre='git grep -n'
 
 
 ##################
-# vagrant
-##################
-alias vup='vagrant up'
-
-
-
-##################
 # Docker関連
 ##################
 # イメージの確認 {image_id}
@@ -98,28 +91,27 @@ alias stgre='find . -type f | xargs grep'
 # catだろうがbatで開く
 alias cat='bat'
 
-# GitHubディレクトリに移動する
-alias cgit='cd /Users/ys/GitHub'
 
-# Vagrantへのssh接続
-alias vs='ssh vagrant@192.168.33.10'
-
-function ssh_set_bgcolor() {
- case $1 in
-   # ssh vagrant@192.168.33.10 の時、背景色を赤くする
-   vagrant@192.168.33.10 ) echo -e "\033]1337;SetProfile=vagarant\a" ;;
- esac
- # Ctrl+Cを押下時、背景色を元に戻す
- trap "echo -e '\033]1337;SetProfile=Default\a'" 2
- # exitされた時、背景色を元に戻す
- trap "echo -e '\033]1337;SetProfile=Default\a'" EXIT
- ssh $@
-}
-
-alias ssh='ssh_set_bgcolor'
 
 alias ssh-config-update="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config"
 
 alias term='echo -ne "\033]1337;SetProfile=$(peco ~/.iterm_profile)\a"'
 
 alias catssh='cat ~/.ssh/config'
+
+function ghql() {
+  local selected_file=$(ghq list --full-path | peco --query "$LBUFFER")
+  if [ -n "$selected_file" ]; then
+    if [ -t 1 ]; then
+      echo ${selected_file}
+      cd ${selected_file}
+      pwd
+    fi
+  fi
+}
+
+bind -x '"\201": ghql'
+bind '"\C-g":"\201\C-m"'
+
+export GOPATH=$(go env GOPATH)
+export PATH="$PATH:$GOPATH/bin"

@@ -11,3 +11,5 @@ if [ -f ~/.bashrc ]; then
 fi
 eval "$(starship init bash)"
 export BASH_SILENCE_DEPRECATION_WARNING=1
+export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:~/flutter/bin"
