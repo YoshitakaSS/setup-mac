@@ -18,8 +18,6 @@
       -  ghq
       -  gmp
       -  gnutls
-      -  heroku
-      -  heroku-node
       -  libevent
       -  libffi
       -  libidn2
@@ -35,18 +33,14 @@
       -  perl
       -  pkg-config
       -  protobuf
-      -  pyenv
-      -  python
-      -  python@3.8
       -  readline
       -  ripgrep
-      -  ruby
-      -  sqlite
       -  starship
       -  tree
       -  unbound
       -  vim
       -  xz
+      -  mysql
     brew_cask_apps:
       - vagrant
       - virtualbox
