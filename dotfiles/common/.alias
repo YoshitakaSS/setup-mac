@@ -60,17 +60,24 @@ alias docupdd='docker-compose build --no-cache'
 # その他
 ##################
 # lsよりコマンド打ちやすいllで、色付き隠しファイル込属性区別付きls
-alias ls='exa -g --time-style=long-iso'
+alias ls='exa -liha --icons'
 # alias ll='ls -alFG'
-alias ll='ls -la'
+alias ll='exa -liha --icons'
+# alias ll='ls -lFhG'
+# alias lla='ls -lFhGa'
+
+alias vi=vim
+
+alias grep='grep --color=auto'
 
 # 直下ディレクトリ全てのファイル名検索
 alias figre='find . -type f | grep'
 # 直下ディレクトリ全てのファイル内の文章検索
 alias stgre='find . -type f | xargs grep'
 
-# catだろうがbatで開く
 alias cat='bat'
+alias find='fd'
+alias grep='rg'
 
 alias ssh-config-update="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config"
 
