@@ -5,9 +5,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 SCRIPT_DIR=$HOME/dotfiles
 
-source $SCRIPT_DIR/zsh/plugins.zsh
-source $SCRIPT_DIR/zsh/p10k.zsh
-source $SCRIPT_DIR/zsh/ailias.zsh
+source $SCRIPT_DIR/zsh/.plugin.zsh
+source $SCRIPT_DIR/zsh/.p10k.zsh
+source $SCRIPT_DIR/zsh/.alias.zsh
 
 # ビープ音の停止
 setopt no_beep
@@ -50,7 +50,4 @@ setopt hist_ignore_space
 
 # ヒストリに保存するときに余分なスペースを削除する
 setopt hist_reduce_blanks
-
-# 補完で小文字でも大文字にマッチさせる
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
