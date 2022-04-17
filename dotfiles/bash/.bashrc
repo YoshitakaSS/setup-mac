@@ -2,7 +2,7 @@ SCRIPT_DIR=$HOME/dotfiles
 
 source $SCRIPT_DIR/common/.alias
 
-# カスタムエイリアスがあれば読み込む
+# カスタムエイリアスがあれば読み込む（会社用のシェルやプライベート用など
 if [ -e $SCRIPT_DIR/common/.custom_alias ]; then
     source $SCRIPT_DIR/common/.custom_alias
 fi
