@@ -61,7 +61,6 @@ alias docupdd='docker-compose build --no-cache'
 ##################
 # lsよりコマンド打ちやすいllで、色付き隠しファイル込属性区別付きls
 alias ls='exa -liha --icons'
-# alias ll='ls -alFG'
 alias ll='exa -liha --icons'
 # alias ll='ls -lFhG'
 # alias lla='ls -lFhGa'
@@ -84,6 +83,9 @@ alias ssh-config-update="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config"
 alias term='echo -ne "\033]1337;SetProfile=$(peco ~/.iterm_profile)\a"'
 
 alias catssh='cat ~/.ssh/config'
+
+# rmコマンドは必ず応答をきく
+alias rm='rm -i'
 
 function ghql() {
   local selected_file=$(ghq list --full-path | peco --query "$LBUFFER")
