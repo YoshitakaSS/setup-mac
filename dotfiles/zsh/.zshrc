@@ -9,6 +9,11 @@ source $SCRIPT_DIR/zsh/.plugin.zsh
 source $SCRIPT_DIR/zsh/.p10k.zsh
 source $SCRIPT_DIR/common/.alias
 
+# カスタムエイリアスがあれば読み込む
+if [ -e $SCRIPT_DIR/common/.custom_alias ]; then
+    source $SCRIPT_DIR/common/.custom_alias
+fi
+
 # ビープ音の停止
 setopt no_beep
 
