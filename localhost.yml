@@ -63,6 +63,7 @@
       - sequel-pro
       - alfred
       - tableplus
+      - macdown
 
   tasks:
     - name: Install brew cask
