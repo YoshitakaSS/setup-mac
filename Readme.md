@@ -43,3 +43,15 @@ If you run the above...
 ```bash
 code --list-extensions | xargs -L 1 echo code --install-extension
 ```
+
+### About Alias
+
+```
+├── dotfiles
+│   ├── bash
+│   │   ├── .bash_profile
+│   │   └── .bashrc
+│   ├── common
+│   │   ├── .alias // common pc alias
+│   │   └── .custom_alias // custom pc alias
+```
