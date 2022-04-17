@@ -1,4 +1,8 @@
-## Set up mac
+## Set up Mac
+
+### Set up Your Mac Python Version
+
+Details: https://github.com/pyenv/pyenv#installation
 
 ### Ansible install
 
@@ -13,19 +17,25 @@ ansible-playbook -i ./etc/ansible/hosts localhost.yml
 
 ### Create symbolic link
 ```bash
-ln -s ./dotfiles/.bash_profile ~/
-ln -s ./dotfiles/.bashrc ~/
-ln -s ./dotfiles/.iterm_profile ~/
+setup-mac $ 
+
+ln -s ~./dotfiles ~/
+
+ln -s ~/.bash_profile ~/dotfiles/bash/.bash_profile
+ln -s ~/.bashrc ~/dotfiles/bash/.bashrc
+ln -s ~/.iterm_profile ~/dotfiles/.iterm_profile
+
+ln -s ~/.zshrc ~/dotfiles/zsh/.zshrc
 ```
+
 
 If you run the above...
 
 ```bash
-lrwxr-xr-x    41 user staff 2020-04-29 17:18 .bash_profile -> ./repo/setup-mac/dotfiles/.bash_profile
+  inode Permissions Size User      Date Modified Name
 
-lrwxr-xr-x    42 user staff 2020-04-29 12:05 .iterm_profile -> ./repo/setup-mac/dotfiles/.iterm_profile
-
-lrwxr-xr-x    35 user staff 2020-04-29 17:17 .bashrc -> ./repo/setup-mac/dotfiles/.bashrc
+1337903 lrwxr-xr-x    46 user 17 4 00:09     dotfiles -> /Users/Your/Repository/setup-mac/dotfiles
+1339729 lrwxr-xr-x    19 user 17 4 00:19     .zshrc -> dotfiles/zsh/.zshrc
 ```
 
 ### Export VSCode extension
