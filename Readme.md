@@ -21,11 +21,12 @@ setup-mac $
 
 ln -s ~./dotfiles ~/
 
-ln -s ~/.bash_profile ~/dotfiles/bash/.bash_profile
-ln -s ~/.bashrc ~/dotfiles/bash/.bashrc
-ln -s ~/.iterm_profile ~/dotfiles/.iterm_profile
+ln -s ~/dotfiles/bash/.bash_profile ~/.bash_profile
+ln -s ~/dotfiles/bash/.bashrc ~/.bashrc
+ln -s ~/dotfiles/.iterm_profile ~/.iterm_profile
 
-ln -s ~/.zshrc ~/dotfiles/zsh/.zshrc
+ln -s ~/dotfiles/zsh/.zshrc ~/.zshrc
+ln -s ~/dotfiles/zsh/.zprofile ~/.zprofile 
 ```
 
 
