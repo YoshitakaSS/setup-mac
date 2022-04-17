@@ -96,5 +96,5 @@ function ghql() {
   fi
 }
 
-bind -x '"\201": ghql'
-bind '"\C-g":"\201\C-m"'
+# bind -x '"\201": ghql'
+# bind '"\C-g":"\201\C-m"'

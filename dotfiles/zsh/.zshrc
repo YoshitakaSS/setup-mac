@@ -7,7 +7,7 @@ SCRIPT_DIR=$HOME/dotfiles
 
 source $SCRIPT_DIR/zsh/.plugin.zsh
 source $SCRIPT_DIR/zsh/.p10k.zsh
-source $SCRIPT_DIR/zsh/.alias.zsh
+source $SCRIPT_DIR/common/.alias
 
 # ビープ音の停止
 setopt no_beep
