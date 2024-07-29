@@ -3,92 +3,22 @@
 - name: set up my mac
   hosts: localhost
   connection: local
-  vars:
-    brew_pkgs:
-      - autoconf
-      - gettext
-      - libtasn1
-      - pyenv
-      - bat
-      - ghq
-      - libtool
-      - readline
-      - bdw-gc
-      - gmp
-      - libunistring
-      - ripgrep
-      - bzip2
-      - gnutls
-      - m4
-      - tree
-      - ca-certificates
-      - guile
-      - nettle
-      - unbound
-      - cask
-      - jansson
-      - openssl@1.1
-      - zlib
-      - coreutils
-      - libevent
-      - p11-kit
-      - zsh-autosuggestions
-      - emacs
-      - libffi
-      - pcre2
-      - zsh-completions
-      - exa
-      - libidn2
-      - peco
-      - zsh-syntax-highlighting
-      - fd
-      - libnghttp2
-      - pkg-config
-    brew_cask_apps:
-      - vagrant
-      - virtualbox
-      - docker
-      - sublime-text
-      - visual-studio-code
-      - firefox
-      - karabiner
-      - shiftit
-      - slack
-      - skitch
-      - kindle
-      - postman
-      - cheatsheet
-      - macwinzipper
-      - clipy
-      - sequel-pro
-      - alfred
-      - tableplus
-      - macdown
 
   tasks:
-    - name: Install brew cask
-      shell: brew install cask
+    - name: Copy Bundle file
+      shell: cp ./brew/.Brewfile ~/.Brewfile
+      
+    - name: Install bundle
+      shell: brew bundle --global
 
-    - name: Install brew pkg
-      homebrew: name {{ item }}
-      with_items: "{{ brew_pkgs }}"
-
-    - name: Install brew cask app 
-      homebrew_cask:
-        name: "{{ item }}"
-        state: "present"
-        install_options: "appdir=/Applications"
-        accept_external_apps: yes
-      with_items: "{{ brew_cask_apps }}"
-
-    - name: make config
+    - name: Make config
       file:
         path: ~/.config
         state: directory
         mode: 0700
         owner: ys
 
-    - name: touch starship config
+    - name: Touch starship config
       file:
         path: ~/.config/starship.toml
         state: touch
