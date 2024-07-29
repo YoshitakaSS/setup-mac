@@ -37,7 +37,6 @@ brew "zsh-autosuggestions"
 brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 brew "ynqa/tap/jnv"
-cask "adoptopenjdk"
 cask "alfred", args: { appdir: "/Applications" }
 cask "cheatsheet", args: { appdir: "/Applications" }
 cask "clipy", args: { appdir: "/Applications" }
@@ -45,13 +44,19 @@ cask "docker", args: { appdir: "/Applications" }
 cask "firefox", args: { appdir: "/Applications" }
 cask "macwinzipper", args: { appdir: "/Applications" }
 cask "postman", args: { appdir: "/Applications" }
-cask "sequel-ace"
-cask "sequel-pro", args: { appdir: "/Applications" }
+cask "sequel-ace", args: { appdir: "/Applications" }
 cask "shiftit", args: { appdir: "/Applications" }
 cask "skitch", args: { appdir: "/Applications" }
 cask "slack", args: { appdir: "/Applications" }
+cask "teams", args: { appdir: "/Applications" }
 cask "tableplus", args: { appdir: "/Applications" }
-cask "wave"
+cask "wave", args: { appdir: "/Applications" }
+cask "cursor", args: { appdir: "/Applications" }
+cask "visual-studio-code", args: { appdir: "/Applications" }
+cask "arc", args: { appdir: "/Applications" }
+cask "karabiner-elements", args: { appdir: "/Applications" }
+cask "scroll-reverser", args: { appdir: "/Applications" }
+cask "kindle", args: { appdir: "/Applications" }
 vscode "farosystemappender constructor"
 vscode "adpyke.codesnap"
 vscode "adpyke.vscode-sql-formatter"
