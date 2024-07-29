@@ -56,3 +56,9 @@ setopt hist_ignore_space
 # ヒストリに保存するときに余分なスペースを削除する
 setopt hist_reduce_blanks
 
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/y-shitara/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/y-shitara/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/y-shitara/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/y-shitara/google-cloud-sdk/completion.zsh.inc'; fi
