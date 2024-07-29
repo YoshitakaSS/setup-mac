@@ -14,3 +14,7 @@ export GO111MODULE=on
 
 export DOCKER_CLIENT_TIMEOUT=300
 export COMPOSE_HTTP_TIMEOUT=300
+# export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+export PATH="/usr/local/opt/php@8.0/bin:$PATH"
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+

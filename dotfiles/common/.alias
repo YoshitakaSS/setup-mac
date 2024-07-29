@@ -30,7 +30,7 @@ alias gss='git stash save'
 alias gsd='git stash drop'
 
 alias gre='git grep -n'
-
+alias gbcp='git symbolic-ref --short HEAD | tr -d '\n' | pbcopy'
 
 ##################
 # Docker関連
@@ -40,7 +40,8 @@ alias dimas='docker images'
 # イメージの削除 {image_id}
 alias drmima='docker rmi '
 # コンテナの確認
-alias docps='docker ps'
+alias docps='docker ps --format "table {{.ID}} {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"'
+# alias docps='docker ps'
 # containerの確認（起動していないもの含め）
 alias dpsa='docker ps -a'
 # コンテナの削除
@@ -55,6 +56,7 @@ alias dlog='docker logs'
 alias docupd='docker-compose build'
 # キャッシュ無視でbuild
 alias docupdd='docker-compose build --no-cache'
+
 
 ##################
 # その他
@@ -75,8 +77,7 @@ alias figre='find . -type f | grep'
 alias stgre='find . -type f | xargs grep'
 
 alias cat='bat'
-alias find='fd'
-alias grep='rg'
+; alias gr='rg'
 
 alias ssh-config-update="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config"
 
