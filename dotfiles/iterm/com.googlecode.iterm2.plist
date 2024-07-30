@@ -4,6 +4,8 @@
 <dict>
 	<key>Default Bookmark Guid</key>
 	<string>B16A6FD9-9968-455B-B9AD-D224B027B729</string>
+	<key>FunctionKey</key>
+	<integer>10</integer>
 	<key>GlobalKeyMap</key>
 	<dict>
 		<key>0x19-0x60000</key>
@@ -47,6 +49,19 @@
 			<integer>33</integer>
 			<key>Text</key>
 			<string></string>
+		</dict>
+		<key>0xf703-0x280000-0x7c</key>
+		<dict>
+			<key>Action</key>
+			<integer>10</integer>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string>f</string>
+			<key>Version</key>
+			<integer>2</integer>
 		</dict>
 		<key>0xf703-0x300000</key>
 		<dict>
@@ -107,10 +122,24 @@
 	</dict>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
+	<key>Hotkey</key>
+	<true/>
+	<key>HotkeyChar</key>
+	<integer>116</integer>
+	<key>HotkeyCode</key>
+	<integer>17</integer>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
+	<key>HotkeyModifiers</key>
+	<integer>262401</integer>
 	<key>Leader</key>
 	<string>0x1b-0x1000000-0x35</string>
+	<key>LeftCommand</key>
+	<integer>7</integer>
+	<key>LeftControl</key>
+	<integer>11</integer>
+	<key>LeftOption</key>
+	<integer>2</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -129,12 +158,16 @@
 			</dict>
 			<key>Ansi 1 Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.0</real>
+				<real>0.2213689386844635</real>
+				<key>Color Space</key>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.0</real>
+				<real>0.25675195455551147</real>
 				<key>Red Component</key>
-				<real>0.73333334922790527</real>
+				<real>0.86062067747116089</real>
 			</dict>
 			<key>Ansi 10 Color</key>
 			<dict>
@@ -159,13 +192,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.97081583738327026</real>
+				<real>0.9772379994392395</real>
 				<key>Color Space</key>
 				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.59505367279052734</real>
+				<real>0.73327475786209106</real>
 				<key>Red Component</key>
-				<real>0.36400356888771057</real>
+				<real>0.43835681676864624</real>
 			</dict>
 			<key>Ansi 13 Color</key>
 			<dict>
@@ -196,12 +229,16 @@
 			</dict>
 			<key>Ansi 2 Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.0</real>
+				<real>0.30808603763580322</real>
+				<key>Color Space</key>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.73333334922790527</real>
+				<real>0.9859660267829895</real>
 				<key>Red Component</key>
-				<real>0.0</real>
+				<real>0.50264054536819458</real>
 			</dict>
 			<key>Ansi 3 Color</key>
 			<dict>
@@ -236,12 +273,16 @@
 			</dict>
 			<key>Ansi 6 Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.73333334922790527</real>
+				<real>0.9915120005607605</real>
+				<key>Color Space</key>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.73333334922790527</real>
+				<real>0.96642452478408813</real>
 				<key>Red Component</key>
-				<real>0.0</real>
+				<real>0.51132726669311523</real>
 			</dict>
 			<key>Ansi 7 Color</key>
 			<dict>
@@ -263,12 +304,16 @@
 			</dict>
 			<key>Ansi 9 Color</key>
 			<dict>
-				<key>Blue Component</key>
-				<real>0.3333333432674408</real>
-				<key>Green Component</key>
-				<real>0.3333333432674408</real>
-				<key>Red Component</key>
+				<key>Alpha Component</key>
 				<real>1</real>
+				<key>Blue Component</key>
+				<real>0.38765531778335571</real>
+				<key>Color Space</key>
+				<string>P3</string>
+				<key>Green Component</key>
+				<real>0.44144898653030396</real>
+				<key>Red Component</key>
+				<real>0.89174741506576538</real>
 			</dict>
 			<key>BM Growl</key>
 			<true/>
@@ -282,7 +327,7 @@
 				<real>0.0</real>
 			</dict>
 			<key>Background Image Location</key>
-			<string>/Users/ys/GitHub/setup-mac/iterms/terminal_images/euclades.png</string>
+			<string>/Users/ys/GitHub/setup-mac/assets/iterm/euclades.png</string>
 			<key>Background Image Mode</key>
 			<integer>2</integer>
 			<key>Badge Color</key>
@@ -360,6 +405,8 @@
 			<string>Default</string>
 			<key>Disable Window Resizing</key>
 			<true/>
+			<key>Faint Text Alpha</key>
+			<real>0.13889355929392688</real>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -691,13 +738,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.73423302173614502</real>
+				<real>0.96784716844558716</real>
 				<key>Color Space</key>
-				<string>sRGB</string>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.35916060209274292</real>
+				<real>0.51588118076324463</real>
 				<key>Red Component</key>
-				<real>0.0</real>
+				<real>0.31698763370513916</real>
 			</dict>
 			<key>Minimum Contrast</key>
 			<real>0.54754083806818177</real>
@@ -939,7 +986,7 @@
 				<real>0.0</real>
 			</dict>
 			<key>Background Image Location</key>
-			<string>/Users/ys/GitHub/setup-mac/iterms/terminal_images/phosphophyllite.png</string>
+			<string>/Users/ys/GitHub/setup-mac/assets/iterm/phosphophyllite.png</string>
 			<key>Background Image Mode</key>
 			<integer>2</integer>
 			<key>Badge Color</key>
@@ -7903,6 +7950,12 @@
 	</dict>
 	<key>Print In Black And White</key>
 	<true/>
+	<key>RightCommand</key>
+	<integer>8</integer>
+	<key>RightControl</key>
+	<integer>12</integer>
+	<key>RightOption</key>
+	<integer>3</integer>
 	<key>ShowFullScreenTabBar</key>
 	<false/>
 	<key>SoundForEsc</key>
