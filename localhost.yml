@@ -16,10 +16,21 @@
         path: ~/.config
         state: directory
         mode: 0700
-        owner: ys
 
     - name: Touch starship config
       file:
         path: ~/.config/starship.toml
         state: touch
-      
+
+    - name: Create symbolic links
+      file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
+      loop:
+        - { src: "~/dotfiles", dest: "~/dotfiles" }
+        - { src: "~/dotfiles/bash/.bash_profile", dest: "~/.bash_profile" }
+        - { src: "~/dotfiles/bash/.bashrc", dest: "~/.bashrc" }
+        - { src: "~/dotfiles/.iterm_profile", dest: "~/.iterm_profile" }
+        - { src: "~/dotfiles/zsh/.zshrc", dest: "~/.zshrc" }
+        - { src: "~/dotfiles/zsh/.zprofile", dest: "~/.zprofile" }
