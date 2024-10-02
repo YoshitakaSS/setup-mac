@@ -62,8 +62,8 @@ alias docupdd='docker-compose build --no-cache'
 # その他
 ##################
 # lsよりコマンド打ちやすいllで、色付き隠しファイル込属性区別付きls
-alias ls='exa -liha --icons'
-alias ll='exa -liha --icons'
+alias ls='eza -liha --icons'
+alias ll='eza -liha --icons'
 # alias ll='ls -lFhG'
 # alias lla='ls -lFhGa'
 
