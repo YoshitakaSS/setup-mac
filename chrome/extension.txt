@@ -1,0 +1,17 @@
+bcjindcccaagfpapjjmafapmmgkkhgoa : JSON Formatter : version 0_7_3
+bhlhnicpbhignbdhedgjhgdocnmhomnp : ColorZilla : version 4_1
+bkhaagjahfmjljalopjnoealnfndnagc : Octotree - GitHub code tree : version 8_0_1
+blipmdconlkpinefehnmjammfjpmpbjk : Lighthouse : version 100_0_0_4
+chklaanhfefbnpoihckbnefhakgolnmc : JSONVue : version 0_2_3
+cjpalhdlnbpafiamejdnhcphjbkeiagm : uBlock Origin : version 1_59_0
+cofdbpoegempjloogbagkncekinflcnj : DeepL翻訳 : version 1_25_1
+cppjkneekbjaeellbfkmgnhonkkjfpdn : Clear Cache : version 2_1_8_2
+fngmhnnpilhplaeedifhccceomclgfbg : EditThisCookie : version 1_6_3
+jabopobgcpjmedljpbcaablpmlmfcogm : WhatFont : version 3_2_0
+ldciclpbkaobfbicjebamaapbfplfjen : Arc internal extension : version 0_0_1
+mbnbehikldjhnfehhnaidhjhoofhpehk : CSS Peeper : version 0_5_6
+mhjfbmdgcfjbbpaeojofohoefgiehjai : Chromium PDF Viewer : version 1
+nfmkaonpdmaglhjjlggfhlndofdldfag : swagger-viewer : version 3_1_1
+nkeimhogjdpnpccoofpliimaahmaaome : Google Hangouts : version 1_3_21
+ohdllebchmmponnofchalfkegpjojcaf : HTMLエラーチェッカー : version 0_5_0_5
+oijdcdmnjjgnnhgljmhkjlablaejfeeb : The QR Code Extension : version 0_5
