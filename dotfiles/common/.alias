@@ -81,7 +81,7 @@ alias cat='bat'
 
 alias ssh-config-update="cat ~/.ssh/conf.d/*.conf > ~/.ssh/config"
 
-alias term='echo -ne "\033]1337;SetProfile=$(peco ~/.iterm_profile)\a"'
+alias term='echo -ne "\033]1337;SetProfile=$(peco ~/dotfiles/iterm/.iterm_profile)\a"'
 
 alias catssh='cat ~/.ssh/config'
 

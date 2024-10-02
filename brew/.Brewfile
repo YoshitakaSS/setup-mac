@@ -57,6 +57,10 @@ cask "arc", args: { appdir: "/Applications" }
 cask "karabiner-elements", args: { appdir: "/Applications" }
 cask "scroll-reverser", args: { appdir: "/Applications" }
 cask "kindle", args: { appdir: "/Applications" }
+cask "zoom", args: { appdir: "/Applications" }
+cask "whatapp", args: { appdir: "/Applications" }
+cask "wrap", args: { appdir: "/Applications" }
+cask "obsidian", args: { appdir: "/Applications" }
 vscode "farosystemappender constructor"
 vscode "adpyke.codesnap"
 vscode "adpyke.vscode-sql-formatter"
