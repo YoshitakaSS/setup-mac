@@ -55,7 +55,7 @@
 			<key>Action</key>
 			<integer>10</integer>
 			<key>Apply Mode</key>
-			<integer>0</integer>
+			<integer>1</integer>
 			<key>Escaping</key>
 			<integer>2</integer>
 			<key>Text</key>
