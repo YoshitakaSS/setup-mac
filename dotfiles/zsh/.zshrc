@@ -62,3 +62,62 @@ if [ -f '/Users/y-shitara/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/y-shi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/y-shitara/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/y-shitara/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Added by Antigravity
+export PATH="/Users/ys/.antigravity/antigravity/bin:$PATH"
+
+# Ghosttyターミナル開発レイアウト
+# 使い方: tcode [ディレクトリ]
+# 左上: yazi, 左下: keifu, 右: claude-code
+tcode() {
+    local target_dir="${1:-$(pwd)}"
+
+    local cmd_yazi="cd ${target_dir} && yazi"
+    local cmd_keifu="cd ${target_dir} && keifu"
+    local cmd_claude="cd ${target_dir} && claude"
+
+    osascript \
+        -e 'on run argv' \
+        -e '    set cmd_yazi to item 1 of argv' \
+        -e '    set cmd_keifu to item 2 of argv' \
+        -e '    set cmd_claude to item 3 of argv' \
+        -e '    tell application "Ghostty" to activate' \
+        -e '    tell application "System Events"' \
+        -e '        tell process "Ghostty"' \
+        -e '            keystroke "d" using command down' \
+        -e '            delay 0.25' \
+        -e '            key code 4 using {control down, option down}' \
+        -e '            delay 0.1' \
+        -e '            set the clipboard to cmd_yazi' \
+        -e '            keystroke "v" using command down' \
+        -e '            keystroke return' \
+        -e '            delay 0.4' \
+        -e '            keystroke "d" using {command down, shift down}' \
+        -e '            delay 0.25' \
+        -e '            set the clipboard to cmd_keifu' \
+        -e '            keystroke "v" using command down' \
+        -e '            keystroke return' \
+        -e '            delay 0.15' \
+        -e '            key code 37 using {control down, option down}' \
+        -e '            delay 0.1' \
+        -e '            set the clipboard to cmd_claude' \
+        -e '            keystroke "v" using command down' \
+        -e '            keystroke return' \
+        -e '            delay 0.2' \
+        -e '            -- 左ペインを狭くする' \
+        -e '            key code 4 using {control down, option down}' \
+        -e '            repeat 25 times' \
+        -e '                key code 123 using {command down, control down}' \
+        -e '            end repeat' \
+        -e '            -- 左上を大きくする' \
+        -e '            key code 40 using {control down, shift down}' \
+        -e '            repeat 8 times' \
+        -e '                key code 125 using {command down, control down}' \
+        -e '            end repeat' \
+        -e '            -- 右ペインに戻る' \
+        -e '            key code 37 using {control down, option down}' \
+        -e '        end tell' \
+        -e '    end tell' \
+        -e 'end run' \
+        -- "${cmd_yazi}" "${cmd_keifu}" "${cmd_claude}"
+}
