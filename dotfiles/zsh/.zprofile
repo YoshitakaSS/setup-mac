@@ -20,3 +20,6 @@ export DOCKER_CLIENT_TIMEOUT=300
 export COMPOSE_HTTP_TIMEOUT=300
 # PHP は MacPorts の `port select --set php php80` で切り替え
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# Homebrew (Apple Silicon の GUI アプリ用)。CLI は MacPorts を優先するため PATH の末尾に置く
+[ -x /opt/homebrew/bin/brew ] && export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"

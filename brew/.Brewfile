@@ -1,54 +1,13 @@
-tap "homebrew/bundle"
-tap "homebrew/services"
-tap "ynqa/tap"
-brew "bat"
-brew "bzip2"
-brew "coreutils"
-brew "libidn2"
-brew "gnutls"
-brew "emacs"
-brew "cask"
-brew "curl"
-brew "direnv"
-brew "eza"
-brew "fd"
-brew "ghq"
-brew "icu4c"
-brew "librsvg"
-brew "graphviz"
-brew "grep"
-brew "jq"
-brew "libxml2"
-brew "libxmlsec1"
-brew "mysql"
-brew "nkf"
-brew "nodebrew"
-brew "oath-toolkit"
-brew "peco"
-brew "php@7.4"
-brew "php@8.0", restart_service: true
-brew "plantuml"
-brew "pyenv"
-brew "ripgrep"
-brew "starship"
-brew "tree"
-brew "wget"
-brew "zsh-autosuggestions"
-brew "zsh-completions"
-brew "zsh-syntax-highlighting"
-brew "ynqa/tap/jnv"
+# Apple Silicon 専用 (brew/install-casks.sh から使う)。CLI は MacPorts (macports/bootstrap.sh) で入れる
 cask "alfred", args: { appdir: "/Applications" }
-cask "cheatsheet", args: { appdir: "/Applications" }
 cask "clipy", args: { appdir: "/Applications" }
-cask "docker", args: { appdir: "/Applications" }
+cask "docker-desktop", args: { appdir: "/Applications" }
 cask "firefox", args: { appdir: "/Applications" }
 cask "macwinzipper", args: { appdir: "/Applications" }
 cask "postman", args: { appdir: "/Applications" }
 cask "sequel-ace", args: { appdir: "/Applications" }
-cask "shiftit", args: { appdir: "/Applications" }
-cask "skitch", args: { appdir: "/Applications" }
 cask "slack", args: { appdir: "/Applications" }
-cask "teams", args: { appdir: "/Applications" }
+cask "microsoft-teams", args: { appdir: "/Applications" }
 cask "tableplus", args: { appdir: "/Applications" }
 cask "wave", args: { appdir: "/Applications" }
 cask "cursor", args: { appdir: "/Applications" }
@@ -56,12 +15,10 @@ cask "visual-studio-code", args: { appdir: "/Applications" }
 cask "arc", args: { appdir: "/Applications" }
 cask "karabiner-elements", args: { appdir: "/Applications" }
 cask "scroll-reverser", args: { appdir: "/Applications" }
-cask "kindle", args: { appdir: "/Applications" }
 cask "zoom", args: { appdir: "/Applications" }
-cask "whatapp", args: { appdir: "/Applications" }
-cask "wrap", args: { appdir: "/Applications" }
+cask "whatsapp", args: { appdir: "/Applications" }
+cask "warp", args: { appdir: "/Applications" }
 cask "obsidian", args: { appdir: "/Applications" }
-vscode "farosystemappender constructor"
 vscode "adpyke.codesnap"
 vscode "adpyke.vscode-sql-formatter"
 vscode "amiralizadeh9480.laravel-extra-intellisense"

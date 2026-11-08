@@ -9,7 +9,14 @@ Homebrew の代わりに MacPorts を使う。Xcode Command Line Tools と MacPo
 sudo bash macports/bootstrap.sh
 ```
 
-GUI アプリ (`brew/.Brewfile` の cask) と VS Code 拡張は MacPorts では扱えないため個別にインストールする。
+### GUI アプリ / VS Code 拡張 (Apple Silicon のみ)
+
+MacPorts では扱えないため、Apple Silicon では Homebrew の cask で入れる (詳細: `brew/README.md`)。
+Intel Mac は Homebrew のサポート対象外なので個別にインストールする。
+
+```bash
+bash brew/install-casks.sh
+```
 
 ### Python (optional)
 

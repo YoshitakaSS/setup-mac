@@ -24,3 +24,6 @@ fi
 
 command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
 command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
+
+# Homebrew (Apple Silicon の GUI アプリ用)。CLI は MacPorts を優先するため PATH の末尾に置く
+[ -x /opt/homebrew/bin/brew ] && export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
