@@ -17,7 +17,6 @@ cask "karabiner-elements", args: { appdir: "/Applications" }
 cask "scroll-reverser", args: { appdir: "/Applications" }
 cask "zoom", args: { appdir: "/Applications" }
 cask "whatsapp", args: { appdir: "/Applications" }
-cask "warp", args: { appdir: "/Applications" }
 cask "obsidian", args: { appdir: "/Applications" }
 vscode "adpyke.codesnap"
 vscode "adpyke.vscode-sql-formatter"
