@@ -1,5 +1,6 @@
 #!/bin/bash
-# Intel Mac (macOS 15 Sequoia) 向け: Xcode CLT + MacPorts + 各パッケージのインストール
+# Xcode CLT + MacPorts + 各パッケージのインストール
+# 対応: Intel / Apple Silicon (MacPorts の pkg はユニバーサル。macOS バージョンごとに pkg が分かれる)
 # 実行: sudo bash macports/bootstrap.sh
 set -euo pipefail
 
@@ -7,10 +8,21 @@ if [ "$(id -u)" -ne 0 ]; then
   echo "sudo bash $0 で実行してください" >&2; exit 1
 fi
 
+# MacPorts を更新するときは MP_VER と下の表 (pkg 名・SHA256) を一緒に更新する
+#   SHA256 は公式 GitHub Releases の pkg をダウンロードし、署名・公証を確認したうえで算出する
 MP_VER=2.12.7
-MP_PKG="MacPorts-${MP_VER}-15-Sequoia.pkg"
-MP_SHA256=87b2e87ed7adc4aca947b42eb7ff991614cc0edfccb486237f2bbc75f28aae63
-MP_TEAM_ID=QTA3A3B7F3
+MP_TEAM_ID=QTA3A3B7F3   # MacPorts の Developer ID Installer (Joshua Root)
+OS_MAJOR=$(sw_vers -productVersion | cut -d. -f1)
+case "$OS_MAJOR" in
+  15) MP_PKG="MacPorts-${MP_VER}-15-Sequoia.pkg";    MP_SHA256=87b2e87ed7adc4aca947b42eb7ff991614cc0edfccb486237f2bbc75f28aae63 ;;
+  26) MP_PKG="MacPorts-${MP_VER}-26-Tahoe.pkg";      MP_SHA256=588f14ccd3c6199559a070a80e6cddd6871721a08cc434775bf54378fd667910 ;;
+  27) MP_PKG="MacPorts-${MP_VER}-27-GoldenGate.pkg"; MP_SHA256=e81cc182808a7c94f72a2121c7c7cabc9f135b88b9a88d477635f0912826da7e ;;
+  *)
+    if [ ! -x /opt/local/bin/port ]; then
+      echo "macOS ${OS_MAJOR} 用の MacPorts pkg が未登録です。MP_VER と表を更新してください" >&2; exit 1
+    fi ;;
+esac
+echo "==> macOS $(sw_vers -productVersion) / $(uname -m)"
 WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT
 
@@ -33,7 +45,7 @@ if [ ! -x /opt/local/bin/port ]; then
   # 改ざん検知: ハッシュ固定 + Apple 公証 + MacPorts 署名者 (Team ID) を確認してから入れる
   echo "${MP_SHA256}  $WORK/$MP_PKG" | shasum -a 256 -c -
   spctl -a -t install "$WORK/$MP_PKG"
-  pkgutil --check-signature "$WORK/$MP_PKG" | grep -q "Developer ID Installer: Joshua Root (${MP_TEAM_ID})" \
+  pkgutil --check-signature "$WORK/$MP_PKG" | grep -q "Developer ID Installer: .*(${MP_TEAM_ID})" \
     || { echo "署名者が想定と異なります。中止します" >&2; exit 1; }
   installer -pkg "$WORK/$MP_PKG" -target /
 fi

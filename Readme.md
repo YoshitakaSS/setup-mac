@@ -1,6 +1,6 @@
 ## Set up Mac
 
-### Install packages (MacPorts, Intel Mac / macOS 15 Sequoia)
+### Install packages (MacPorts / Intel・Apple Silicon 共通)
 
 Homebrew の代わりに MacPorts を使う。Xcode Command Line Tools と MacPorts 本体
 (署名・公証・SHA256 を検証) を入れた上で、gh / ansible / 各種 CLI をインストールする。

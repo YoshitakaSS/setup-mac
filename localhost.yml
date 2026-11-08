@@ -36,9 +36,7 @@
       register: dest_stat
 
     - name: Back up existing regular files before linking
-      command: mv "{{ item.stat.path }}" "{{ item.stat.path }}.bak"
-      args:
-        creates: "{{ item.stat.path }}.bak"
+      command: mv "{{ item.stat.path }}" "{{ item.stat.path }}.bak.{{ ansible_date_time.epoch }}"
       loop: "{{ dest_stat.results }}"
       when: item.stat.exists and not item.stat.islnk
 

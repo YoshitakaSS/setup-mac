@@ -1,13 +1,16 @@
+# MacPorts は Intel / Apple Silicon とも /opt/local に入る
+BLUEUTIL=$(command -v blueutil || echo /opt/local/bin/blueutil)
+
 # Function to pair or unpair a device based on its connection status
 pair_or_unpair_device() {
     local DEVICE_ID="$1"
-    local res=$(/usr/local/bin/blueutil --is-connected $DEVICE_ID)
+    local res=$("$BLUEUTIL" --is-connected $DEVICE_ID)
     if [[ "$res" = '1' ]]; then
-        /usr/local/bin/blueutil --unpair $DEVICE_ID
+        "$BLUEUTIL" --unpair $DEVICE_ID
     else
-        /usr/local/bin/blueutil --pair $DEVICE_ID
+        "$BLUEUTIL" --pair $DEVICE_ID
         sleep 1
-        /usr/local/bin/blueutil --connect $DEVICE_ID
+        "$BLUEUTIL" --connect $DEVICE_ID
     fi
 }
 
