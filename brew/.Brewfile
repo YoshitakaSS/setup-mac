@@ -12,7 +12,6 @@ cask "tableplus", args: { appdir: "/Applications" }
 cask "wave", args: { appdir: "/Applications" }
 cask "cursor", args: { appdir: "/Applications" }
 cask "visual-studio-code", args: { appdir: "/Applications" }
-cask "arc", args: { appdir: "/Applications" }
 cask "karabiner-elements", args: { appdir: "/Applications" }
 cask "scroll-reverser", args: { appdir: "/Applications" }
 cask "zoom", args: { appdir: "/Applications" }
@@ -34,15 +33,11 @@ vscode "bmewburn.vscode-intelephense-client"
 vscode "bpruitt-goddard.mermaid-markdown-syntax-highlighting"
 vscode "christian-kohler.path-intellisense"
 vscode "codingyu.laravel-goto-view"
-vscode "coenraads.bracket-pair-colorizer-2"
 vscode "cvergne.vscode-php-getters-setters-cv"
 vscode "damms005.devdb"
 vscode "dracula-theme.theme-dracula"
 vscode "eamodio.gitlens"
 vscode "editorconfig.editorconfig"
-vscode "equinusocio.vsc-community-material-theme"
-vscode "equinusocio.vsc-material-theme"
-vscode "equinusocio.vsc-material-theme-icons"
 vscode "fetzi.php-file-types"
 vscode "formulahendry.auto-rename-tag"
 vscode "github.copilot"
