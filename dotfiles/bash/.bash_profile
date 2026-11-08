@@ -1,7 +1,11 @@
+# MacPorts
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+export MANPATH="/opt/local/share/man:$MANPATH"
+
+export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:~/flutter/bin"
-export PYENV_ROOT="$HOME/.pyenv"
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 COMMON_PROFILE=$HOME/.profile_common
@@ -18,6 +22,5 @@ if [ -e $COMMON_PROFILE ]; then
     source $COMMON_PROFILE
 fi
 
-eval "$(pyenv init -)"
-eval "$(starship init bash)"
-
+command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"

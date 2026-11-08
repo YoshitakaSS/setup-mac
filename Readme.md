@@ -1,14 +1,20 @@
 ## Set up Mac
 
-### Set up Your Mac Python Version
+### Install packages (MacPorts, Intel Mac / macOS 15 Sequoia)
 
-Details: https://github.com/pyenv/pyenv#installation
-
-### Ansible install
+Homebrew の代わりに MacPorts を使う。Xcode Command Line Tools と MacPorts 本体
+(署名・公証・SHA256 を検証) を入れた上で、gh / ansible / 各種 CLI をインストールする。
 
 ```bash
-pip install ansible
+sudo bash macports/bootstrap.sh
 ```
+
+GUI アプリ (`brew/.Brewfile` の cask) と VS Code 拡張は MacPorts では扱えないため個別にインストールする。
+
+### Python (optional)
+
+pyenv は MacPorts に無いため必要なら手動で入れる。
+Details: https://github.com/pyenv/pyenv#installation
 
 ### playbook exec
 ```bash
