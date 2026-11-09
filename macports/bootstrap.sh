@@ -55,11 +55,13 @@ port -v selfupdate
 
 # 3. パッケージ (旧 Brewfile の brew 部分 + gh, ansible)
 #    zsh プラグインは zinit (.plugin.zsh) で管理するためここでは入れない
+#    Node.js / 開発用 Python / Go は mise で管理する (dotfiles/config/mise/config.toml)
+#    py313-ansible が依存する MacPorts の Python はシステム用として残す
 PORTS=(
   gh
   py313-ansible
   bat bzip2 coreutils libidn2 gnutls emacs curl direnv eza fd ghq icu
-  librsvg graphviz grep jq libxml2 xmlsec mysql8 nkf nodejs24 npm11
+  librsvg graphviz grep jq libxml2 xmlsec mysql8 nkf mise
   oath-toolkit peco php84 plantuml ripgrep starship tree wget jnv blueutil
 )
 echo "==> port install ${PORTS[*]}"

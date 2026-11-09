@@ -19,15 +19,26 @@ Intel Mac は Homebrew のサポート対象外なので個別にインストー
 bash brew/install-casks.sh
 ```
 
-### Python (optional)
-
-pyenv は MacPorts に無いため必要なら手動で入れる。
-Details: https://github.com/pyenv/pyenv#installation
-
 ### playbook exec
 ```bash
 ansible-playbook -i ./etc/ansible/hosts localhost.yml
 ```
+
+dotfiles のリンク作成に加え、mise のグローバル設定 (`dotfiles/config/mise/config.toml`) にあるツールを `mise install` で入れる。
+
+### Node.js / Python / Go (mise)
+
+言語ランタイムのバージョンは [mise](https://mise.jdx.dev/) で管理する (nvm / pyenv / goenv の代わり)。
+
+- グローバル: `dotfiles/config/mise/config.toml` (既定は `node = "lts"`)
+- プロジェクトごと: 各リポジトリの `mise.toml`、または `.nvmrc` / `.node-version` / `.python-version`
+
+```bash
+mise use node@24        # カレントディレクトリの mise.toml に固定
+mise use -g python@3.13 # グローバルに追加
+```
+
+ansible が使う Python は MacPorts のもの (`py313-ansible` の依存) で、mise とは別。
 
 If you run the above...
 

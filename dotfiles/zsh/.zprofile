@@ -2,16 +2,11 @@
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export MANPATH="/opt/local/share/man:$MANPATH"
 
-# python
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init --path)"
+# mise (Node.js / Python / Go などのバージョン管理)
+# ログインシェルや IDE からも使えるよう shims を PATH に通す。対話シェルでは .zshrc の mise activate が優先される
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh --shims)"
 
 # golang
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-command -v goenv >/dev/null 2>&1 && eval "$(goenv init -)"
-
 [ -n "$GOROOT" ] && export PATH="$GOROOT/bin:$PATH"
 [ -n "$GOPATH" ] && export PATH="$PATH:$GOPATH/bin"
 export GO111MODULE=on 

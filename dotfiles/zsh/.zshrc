@@ -1,4 +1,5 @@
-command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
+# mise (バージョン管理)
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 

@@ -12,11 +12,18 @@
       - { src: "~/dotfiles/iterm/.iterm_profile", dest: "~/.iterm_profile" }
       - { src: "~/dotfiles/zsh/.zshrc", dest: "~/.zshrc" }
       - { src: "~/dotfiles/zsh/.zprofile", dest: "~/.zprofile" }
+      - { src: "~/dotfiles/config/mise/config.toml", dest: "~/.config/mise/config.toml" }
 
   tasks:
     - name: Make config
       file:
         path: ~/.config
+        state: directory
+        mode: 0700
+
+    - name: Make mise config dir
+      file:
+        path: ~/.config/mise
         state: directory
         mode: 0700
 
@@ -45,3 +52,16 @@
         dest: "{{ item.dest }}"
         state: link
       loop: "{{ links }}"
+
+    # ~/.config/mise/config.toml に書いたツール (node など) を入れる
+    - name: Check mise
+      command: /opt/local/bin/mise --version
+      register: mise_check
+      changed_when: false
+      failed_when: false
+
+    - name: Install mise tools
+      command: /opt/local/bin/mise install --yes
+      register: mise_install
+      changed_when: "'installed' in mise_install.stderr"
+      when: mise_check.rc == 0
