@@ -13,6 +13,7 @@
       - { src: "~/dotfiles/zsh/.zshrc", dest: "~/.zshrc" }
       - { src: "~/dotfiles/zsh/.zprofile", dest: "~/.zprofile" }
       - { src: "~/dotfiles/config/mise/config.toml", dest: "~/.config/mise/config.toml" }
+      - { src: "~/dotfiles/config/starship.toml", dest: "~/.config/starship.toml" }
 
   tasks:
     - name: Make config
@@ -26,13 +27,6 @@
         path: ~/.config/mise
         state: directory
         mode: 0700
-
-    - name: Touch starship config
-      file:
-        path: ~/.config/starship.toml
-        state: touch
-        modification_time: preserve
-        access_time: preserve
 
     - name: Check existing link destinations
       stat:
