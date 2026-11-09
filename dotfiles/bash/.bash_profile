@@ -1,6 +1,5 @@
-# MacPorts
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-export MANPATH="/opt/local/share/man:$MANPATH"
+# Homebrew (Apple Silicon) / MacPorts (Intel)
+[ -f "$HOME/dotfiles/common/.package_manager" ] && source "$HOME/dotfiles/common/.package_manager"
 
 # mise (バージョン管理)。ログインシェル用に shims を通し、対話シェルでは .bashrc の mise activate が優先される
 command -v mise >/dev/null 2>&1 && eval "$(mise activate bash --shims)"
@@ -20,8 +19,3 @@ if [ -e $COMMON_PROFILE ]; then
 fi
 
 command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
-
-# Homebrew (Apple Silicon の GUI アプリ用)。CLI は MacPorts を優先するため PATH の末尾に置く
-if [ -x /opt/homebrew/bin/brew ]; then
-    export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
-fi

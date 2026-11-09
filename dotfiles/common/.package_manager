@@ -1,0 +1,14 @@
+# パッケージマネージャの PATH (.zprofile / .bash_profile から読み込む)
+#   Apple Silicon: Homebrew (/opt/homebrew)  … brew/bootstrap.sh
+#   Intel        : MacPorts (/opt/local)     … macports/bootstrap.sh
+if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    # keg-only (Homebrew が PATH に入れない) formula
+    for _keg in php@8.4 mysql@8.4 curl; do
+        [ -d "/opt/homebrew/opt/$_keg/bin" ] && export PATH="/opt/homebrew/opt/$_keg/bin:$PATH"
+    done
+    unset _keg
+elif [ -x /opt/local/bin/port ]; then
+    export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+    export MANPATH="/opt/local/share/man:$MANPATH"
+fi

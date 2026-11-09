@@ -1,9 +1,14 @@
 #!/bin/bash
-# Xcode CLT + MacPorts + 各パッケージのインストール
-# 対応: Intel / Apple Silicon (MacPorts の pkg はユニバーサル。macOS バージョンごとに pkg が分かれる)
+# Intel Mac 用: Xcode CLT + MacPorts + 各パッケージのインストール
+# (Homebrew は Intel のサポートを終了しているため MacPorts を使う。Apple Silicon は brew/bootstrap.sh)
+# MacPorts の pkg は macOS バージョンごとに分かれる
 # 実行: sudo bash macports/bootstrap.sh
 set -euo pipefail
 
+if [ "$(uname -m)" != "x86_64" ]; then
+  echo "Apple Silicon では brew/bootstrap.sh を使ってください (bash brew/bootstrap.sh)" >&2
+  exit 1
+fi
 if [ "$(id -u)" -ne 0 ]; then
   echo "sudo bash $0 で実行してください" >&2; exit 1
 fi
@@ -54,6 +59,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 port -v selfupdate
 
 # 3. パッケージ (旧 Brewfile の brew 部分 + gh, ansible)
+#    一覧は brew/.Brewfile の CLI と揃える
 #    zsh プラグインは zinit (.plugin.zsh) で管理するためここでは入れない
 #    Node.js / 開発用 Python / Go は mise で管理する (dotfiles/config/mise/config.toml)
 #    py313-ansible が依存する MacPorts の Python はシステム用として残す

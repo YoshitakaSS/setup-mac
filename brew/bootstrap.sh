@@ -1,12 +1,12 @@
 #!/bin/bash
-# Apple Silicon 専用: GUI アプリ (cask) と VS Code 拡張を Homebrew で入れる
-# CLI は MacPorts (macports/bootstrap.sh) に統一しているため、ここでは brew の formula は入れない
-# 実行: bash brew/install-casks.sh   (sudo を付けない。Homebrew 本体の導入時のみパスワードを聞かれる)
+# Apple Silicon 用: Xcode CLT + Homebrew + CLI / GUI アプリ / VS Code 拡張のインストール
+# Intel Mac は macports/bootstrap.sh を使う
+# 実行: bash brew/bootstrap.sh   (sudo を付けない。CLT・Homebrew 本体の導入時のみパスワードを聞かれる)
 set -euo pipefail
 
 if [ "$(uname -m)" != "arm64" ]; then
-  echo "Intel Mac は Homebrew のサポート対象外のためスキップします (GUI アプリは個別にインストール)"
-  exit 0
+  echo "Intel Mac では macports/bootstrap.sh を使ってください (sudo bash macports/bootstrap.sh)" >&2
+  exit 1
 fi
 if [ "$(id -u)" -eq 0 ]; then
   echo "Homebrew は root で実行できません。sudo を付けずに実行してください" >&2; exit 1
@@ -21,10 +21,24 @@ HB_VER=7.0.10
 HB_SHA256=ae13b8b0ac910730d3e982a9e7518288d17fd0ad272e42f412027e8ab4555575
 HB_TEAM_ID=927JGANW46   # Homebrew の Developer ID Installer
 
+WORK=$(mktemp -d)
+trap 'rm -rf "$WORK"' EXIT
+
+# 1. Xcode Command Line Tools
+if ! xcode-select -p >/dev/null 2>&1; then
+  echo "==> Xcode Command Line Tools をインストール"
+  sudo touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+  LABEL=$(softwareupdate -l 2>/dev/null | grep -E '^\s*\* Label: Command Line Tools' | sed 's/^.*Label: //' | sort -V | tail -1)
+  if [ -z "$LABEL" ]; then
+    echo "CLT が softwareupdate で見つかりません。xcode-select --install を手動で実行してください" >&2; exit 1
+  fi
+  sudo softwareupdate -i "$LABEL" --verbose
+  sudo rm -f /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+fi
+
+# 2. Homebrew
 if [ ! -x "$BREW" ]; then
   echo "==> Homebrew ${HB_VER} をインストール"
-  WORK=$(mktemp -d)
-  trap 'rm -rf "$WORK"' EXIT
   PKG="$WORK/Homebrew.pkg"
   curl -fL --proto '=https' --tlsv1.2 -o "$PKG" "https://github.com/Homebrew/brew/releases/download/${HB_VER}/Homebrew.pkg"
   # 初回に入れる pkg の検証: ハッシュ固定 + Apple 公証 + 署名者 (Team ID)
@@ -36,5 +50,6 @@ if [ ! -x "$BREW" ]; then
   sudo installer -pkg "$PKG" -target /
 fi
 
-echo "==> brew bundle (cask / VS Code 拡張)"
+# 3. CLI / GUI アプリ / VS Code 拡張
+echo "==> brew bundle"
 "$BREW" bundle --file "$SCRIPT_DIR/.Brewfile"

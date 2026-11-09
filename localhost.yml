@@ -3,7 +3,10 @@
   hosts: localhost
   connection: local
 
-  # パッケージは MacPorts (macports/bootstrap.sh) で導入済みの前提。ここでは設定ファイルのみ扱う
+  # パッケージは導入済みの前提 (Apple Silicon: brew/bootstrap.sh / Intel: macports/bootstrap.sh)
+  # ここでは設定ファイルのリンクと mise のツール導入のみ扱う
+  environment:
+    PATH: "/opt/homebrew/bin:/opt/local/bin:{{ ansible_env.PATH }}"
   vars:
     links:
       - { src: "{{ playbook_dir }}/dotfiles", dest: "~/dotfiles" }
@@ -49,13 +52,13 @@
 
     # ~/.config/mise/config.toml に書いたツール (node など) を入れる
     - name: Check mise
-      command: /opt/local/bin/mise --version
+      command: mise --version
       register: mise_check
       changed_when: false
       failed_when: false
 
     - name: Install mise tools
-      command: /opt/local/bin/mise install --yes
+      command: mise install --yes
       register: mise_install
-      changed_when: "'installed' in mise_install.stderr"
+      changed_when: mise_install.stderr is search('installed [1-9]')
       when: mise_check.rc == 0

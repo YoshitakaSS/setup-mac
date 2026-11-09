@@ -1,4 +1,41 @@
-# Apple Silicon 専用 (brew/install-casks.sh から使う)。CLI は MacPorts (macports/bootstrap.sh) で入れる
+# Apple Silicon 用 (brew/bootstrap.sh から使う)。Intel Mac は macports/bootstrap.sh を使う
+# CLI の一覧は macports/bootstrap.sh の PORTS と揃える
+
+# CLI
+brew "gh"
+brew "ansible"
+brew "mise"
+brew "bat"
+brew "bzip2"
+brew "coreutils"
+brew "libidn2"
+brew "gnutls"
+brew "emacs"
+brew "curl"
+brew "direnv"
+brew "eza"
+brew "fd"
+brew "ghq"
+brew "librsvg"
+brew "graphviz"
+brew "grep"
+brew "jq"
+brew "libxml2"
+brew "libxmlsec1"
+brew "mysql@8.4"
+brew "nkf"
+brew "oath-toolkit"
+brew "peco"
+brew "php@8.4"
+brew "plantuml"
+brew "ripgrep"
+brew "starship"
+brew "tree"
+brew "wget"
+brew "jnv"
+brew "blueutil"
+
+# GUI アプリ
 cask "alfred", args: { appdir: "/Applications" }
 cask "clipy", args: { appdir: "/Applications" }
 cask "docker-desktop", args: { appdir: "/Applications" }
@@ -17,6 +54,8 @@ cask "scroll-reverser", args: { appdir: "/Applications" }
 cask "zoom", args: { appdir: "/Applications" }
 cask "whatsapp", args: { appdir: "/Applications" }
 cask "obsidian", args: { appdir: "/Applications" }
+
+# VS Code 拡張
 vscode "adpyke.codesnap"
 vscode "adpyke.vscode-sql-formatter"
 vscode "arjun.swagger-viewer"

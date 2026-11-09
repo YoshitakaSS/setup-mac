@@ -1,23 +1,39 @@
 ## Set up Mac
 
-### Install packages (MacPorts / Intel・Apple Silicon 共通)
+Mac の種類でパッケージマネージャを分ける。
 
-Homebrew の代わりに MacPorts を使う。Xcode Command Line Tools と MacPorts 本体
-(初回インストール時に pkg の署名・公証・SHA256 を検証) を入れた上で、gh / ansible / 各種 CLI をインストールする。
-導入後の MacPorts 本体の更新は `port selfupdate` で行われる。パッケージの導入に1つでも失敗すると終了コード 1 で終わる。
+| | パッケージマネージャ | スクリプト | 入るもの |
+|---|---|---|---|
+| Apple Silicon (M1〜M4 など) | Homebrew | `bash brew/bootstrap.sh` (sudo なし) | CLI・GUI アプリ・VS Code 拡張 (`brew/.Brewfile`) |
+| Intel | MacPorts | `sudo bash macports/bootstrap.sh` | CLI のみ (GUI アプリは個別にインストール) |
 
-```bash
-sudo bash macports/bootstrap.sh
-```
+Intel は Homebrew のサポートが終了しているため MacPorts を使う。CLI の一覧は `brew/.Brewfile` と `macports/bootstrap.sh` で揃える。
+どちらのスクリプトも Xcode Command Line Tools を入れ、パッケージマネージャ本体の pkg は初回インストール時に
+署名・公証・SHA256 を検証する (導入後の本体の更新は `brew update` / `port selfupdate` が行う)。
 
-### GUI アプリ / VS Code 拡張 (Apple Silicon のみ)
+### 新しい Mac でのセットアップ
 
-MacPorts では扱えないため、Apple Silicon では Homebrew の cask で入れる (詳細: `brew/README.md`)。
-Intel Mac は Homebrew のサポート対象外なので個別にインストールする。
+1. リポジトリを取得してパッケージを入れる (この時点では git / gh が無いのでアーカイブで取得する)
 
-```bash
-bash brew/install-casks.sh
-```
+   ```bash
+   mkdir -p ~/Repository && cd ~/Repository
+   curl -L https://github.com/YoshitakaSS/setup-mac/archive/refs/heads/master.tar.gz | tar xz
+   cd setup-mac-master
+
+   bash brew/bootstrap.sh            # Apple Silicon
+   sudo bash macports/bootstrap.sh   # Intel
+   ```
+
+2. ターミナルを開き直して GitHub にログインし、リポジトリを clone する
+   (dotfiles のリンク前なので、Apple Silicon では先に Homebrew の PATH を通す)
+
+   ```bash
+   eval "$(/opt/homebrew/bin/brew shellenv)"   # Apple Silicon のみ
+   gh auth login --web && gh auth setup-git
+   cd ~/Repository && gh repo clone YoshitakaSS/setup-mac && rm -rf setup-mac-master
+   ```
+
+3. dotfiles のリンクと mise のツールを入れる (下記 playbook exec)
 
 ### playbook exec
 ```bash

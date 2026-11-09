@@ -1,5 +1,5 @@
-# MacPorts は Intel / Apple Silicon とも /opt/local に入る
-BLUEUTIL=$(command -v blueutil || echo /opt/local/bin/blueutil)
+# Apple Silicon: Homebrew (/opt/homebrew) / Intel: MacPorts (/opt/local)
+BLUEUTIL=$(command -v blueutil || ls /opt/homebrew/bin/blueutil /opt/local/bin/blueutil 2>/dev/null | head -1)
 
 # Function to pair or unpair a device based on its connection status
 pair_or_unpair_device() {
