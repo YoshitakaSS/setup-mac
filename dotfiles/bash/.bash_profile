@@ -18,4 +18,6 @@ if [ -e $COMMON_PROFILE ]; then
     source $COMMON_PROFILE
 fi
 
-command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
+if command -v starship >/dev/null 2>&1; then
+    eval "$(starship init bash)"
+fi

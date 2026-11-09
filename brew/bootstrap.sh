@@ -4,7 +4,8 @@
 # 実行: bash brew/bootstrap.sh   (sudo を付けない。CLT・Homebrew 本体の導入時のみパスワードを聞かれる)
 set -euo pipefail
 
-if [ "$(uname -m)" != "arm64" ]; then
+# uname -m は Rosetta 下のターミナルだと x86_64 を返すため、CPU 自体を sysctl で判定する
+if [ "$(sysctl -in hw.optional.arm64)" != "1" ]; then
   echo "Intel Mac では macports/bootstrap.sh を使ってください (sudo bash macports/bootstrap.sh)" >&2
   exit 1
 fi
@@ -52,4 +53,5 @@ fi
 
 # 3. CLI / GUI アプリ / VS Code 拡張
 echo "==> brew bundle"
-"$BREW" bundle --file "$SCRIPT_DIR/.Brewfile"
+# Rosetta 下のターミナルから実行されても arm64 の Homebrew として動かす
+arch -arm64 "$BREW" bundle --file "$SCRIPT_DIR/.Brewfile"

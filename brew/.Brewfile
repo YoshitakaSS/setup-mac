@@ -1,5 +1,5 @@
 # Apple Silicon 用 (brew/bootstrap.sh から使う)。Intel Mac は macports/bootstrap.sh を使う
-# CLI の一覧は macports/bootstrap.sh の PORTS と揃える
+# CLI の一覧は macports/bootstrap.sh の PORTS と揃える。違い: icu4c は依存で自動導入されるため書かない、ansible は MacPorts では py313-ansible
 
 # CLI
 brew "gh"

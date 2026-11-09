@@ -1,5 +1,9 @@
 # Apple Silicon: Homebrew (/opt/homebrew) / Intel: MacPorts (/opt/local)
 BLUEUTIL=$(command -v blueutil || ls /opt/homebrew/bin/blueutil /opt/local/bin/blueutil 2>/dev/null | head -1)
+if [ -z "$BLUEUTIL" ]; then
+    echo "blueutil が見つかりません (Apple Silicon: brew/bootstrap.sh、Intel: macports/bootstrap.sh で導入)" >&2
+    exit 1
+fi
 
 # Function to pair or unpair a device based on its connection status
 pair_or_unpair_device() {

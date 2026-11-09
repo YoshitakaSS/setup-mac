@@ -1,7 +1,7 @@
 ### Homebrew (Apple Silicon 用)
 
 Apple Silicon では CLI・GUI アプリ (cask)・VS Code 拡張をすべて Homebrew で入れる。
-Intel Mac は Homebrew のサポート対象外のため `macports/bootstrap.sh` を使う (このスクリプトは Intel では何もせず終了する)。
+Intel Mac は `macports/bootstrap.sh` を使う (このスクリプトを Intel で実行すると、案内を出してエラーで終了する)。
 
 ```bash
 bash brew/bootstrap.sh

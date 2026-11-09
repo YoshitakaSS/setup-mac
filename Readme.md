@@ -7,7 +7,9 @@ Mac の種類でパッケージマネージャを分ける。
 | Apple Silicon (M1〜M4 など) | Homebrew | `bash brew/bootstrap.sh` (sudo なし) | CLI・GUI アプリ・VS Code 拡張 (`brew/.Brewfile`) |
 | Intel | MacPorts | `sudo bash macports/bootstrap.sh` | CLI のみ (GUI アプリは個別にインストール) |
 
-Intel は Homebrew のサポートが終了しているため MacPorts を使う。CLI の一覧は `brew/.Brewfile` と `macports/bootstrap.sh` で揃える。
+Intel は MacPorts を使う。Homebrew では Intel が最下位のサポート段階 (Tier 3) になり、ビルド済みパッケージの提供も止まっていて、
+2027 年 9 月以降は Intel で動かなくなる予定のため (https://docs.brew.sh/Support-Tiers)。
+CLI の一覧は `brew/.Brewfile` と `macports/bootstrap.sh` で揃える。
 どちらのスクリプトも Xcode Command Line Tools を入れ、パッケージマネージャ本体の pkg は初回インストール時に
 署名・公証・SHA256 を検証する (導入後の本体の更新は `brew update` / `port selfupdate` が行う)。
 
@@ -33,7 +35,12 @@ Intel は Homebrew のサポートが終了しているため MacPorts を使う
    cd ~/Repository && gh repo clone YoshitakaSS/setup-mac && rm -rf setup-mac-master
    ```
 
-3. dotfiles のリンクと mise のツールを入れる (下記 playbook exec)
+3. dotfiles のリンクと mise のツールを入れる (詳細は下記 playbook exec)
+
+   ```bash
+   cd ~/Repository/setup-mac
+   ansible-playbook -i ./etc/ansible/hosts localhost.yml
+   ```
 
 ### playbook exec
 ```bash

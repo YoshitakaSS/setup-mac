@@ -5,7 +5,8 @@
 # 実行: sudo bash macports/bootstrap.sh
 set -euo pipefail
 
-if [ "$(uname -m)" != "x86_64" ]; then
+# uname -m は Rosetta 下のターミナルだと Apple Silicon でも x86_64 を返すため、CPU 自体を sysctl で判定する
+if [ "$(sysctl -in hw.optional.arm64)" = "1" ]; then
   echo "Apple Silicon では brew/bootstrap.sh を使ってください (bash brew/bootstrap.sh)" >&2
   exit 1
 fi
@@ -59,7 +60,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 port -v selfupdate
 
 # 3. パッケージ (旧 Brewfile の brew 部分 + gh, ansible)
-#    一覧は brew/.Brewfile の CLI と揃える
+#    一覧は brew/.Brewfile の CLI と揃える。違い: icu (Homebrew では依存で自動導入)、py313-ansible (Homebrew では ansible)
 #    zsh プラグインは zinit (.plugin.zsh) で管理するためここでは入れない
 #    Node.js / 開発用 Python / Go は mise で管理する (dotfiles/config/mise/config.toml)
 #    py313-ansible が依存する MacPorts の Python はシステム用として残す
