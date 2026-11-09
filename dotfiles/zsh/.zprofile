@@ -1,20 +1,14 @@
-# python
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+# Homebrew (Apple Silicon) / MacPorts (Intel)
+[ -f "$HOME/dotfiles/common/.package_manager" ] && source "$HOME/dotfiles/common/.package_manager"
+
+# mise (Node.js / Python / Go などのバージョン管理)
+# ログインシェルや IDE からも使えるよう shims を PATH に通す。対話シェルでは .zshrc の mise activate が優先される
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh --shims)"
 
 # golang
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-eval "$(goenv init -)"
-
-export PATH="$GOROOT/bin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
+[ -n "$GOROOT" ] && export PATH="$GOROOT/bin:$PATH"
+[ -n "$GOPATH" ] && export PATH="$PATH:$GOPATH/bin"
 export GO111MODULE=on 
 
 export DOCKER_CLIENT_TIMEOUT=300
 export COMPOSE_HTTP_TIMEOUT=300
-# export PATH="/usr/local/opt/php@7.4/bin:$PATH"
-export PATH="/usr/local/opt/php@8.0/bin:$PATH"
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-

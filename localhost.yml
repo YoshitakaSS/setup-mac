@@ -1,36 +1,64 @@
-  
 ---
 - name: set up my mac
   hosts: localhost
   connection: local
 
-  tasks:
-    - name: Copy Bundle file
-      shell: cp ./brew/.Brewfile ~/.Brewfile
-      
-    - name: Install bundle
-      shell: brew bundle --global
+  # パッケージは導入済みの前提 (Apple Silicon: brew/bootstrap.sh / Intel: macports/bootstrap.sh)
+  # ここでは設定ファイルのリンクと mise のツール導入のみ扱う
+  environment:
+    PATH: "/opt/homebrew/bin:/opt/local/bin:{{ ansible_env.PATH }}"
+  vars:
+    links:
+      - { src: "{{ playbook_dir }}/dotfiles", dest: "~/dotfiles" }
+      - { src: "~/dotfiles/bash/.bash_profile", dest: "~/.bash_profile" }
+      - { src: "~/dotfiles/bash/.bashrc", dest: "~/.bashrc" }
+      - { src: "~/dotfiles/iterm/.iterm_profile", dest: "~/.iterm_profile" }
+      - { src: "~/dotfiles/zsh/.zshrc", dest: "~/.zshrc" }
+      - { src: "~/dotfiles/zsh/.zprofile", dest: "~/.zprofile" }
+      - { src: "~/dotfiles/config/mise/config.toml", dest: "~/.config/mise/config.toml" }
+      - { src: "~/dotfiles/config/starship.toml", dest: "~/.config/starship.toml" }
 
+  tasks:
     - name: Make config
       file:
         path: ~/.config
         state: directory
         mode: 0700
 
-    - name: Touch starship config
+    - name: Make mise config dir
       file:
-        path: ~/.config/starship.toml
-        state: touch
+        path: ~/.config/mise
+        state: directory
+        mode: 0700
+
+    - name: Check existing link destinations
+      stat:
+        path: "{{ item.dest }}"
+        follow: false
+      loop: "{{ links }}"
+      register: dest_stat
+
+    - name: Back up existing regular files before linking
+      command: mv "{{ item.stat.path }}" "{{ item.stat.path }}.bak.{{ ansible_date_time.epoch }}"
+      loop: "{{ dest_stat.results }}"
+      when: item.stat.exists and not item.stat.islnk
 
     - name: Create symbolic links
       file:
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
         state: link
-      loop:
-        - { src: "~/dotfiles", dest: "~/dotfiles" }
-        - { src: "~/dotfiles/bash/.bash_profile", dest: "~/.bash_profile" }
-        - { src: "~/dotfiles/bash/.bashrc", dest: "~/.bashrc" }
-        - { src: "~/dotfiles/.iterm_profile", dest: "~/.iterm_profile" }
-        - { src: "~/dotfiles/zsh/.zshrc", dest: "~/.zshrc" }
-        - { src: "~/dotfiles/zsh/.zprofile", dest: "~/.zprofile" }
+      loop: "{{ links }}"
+
+    # ~/.config/mise/config.toml に書いたツール (node など) を入れる
+    - name: Check mise
+      command: mise --version
+      register: mise_check
+      changed_when: false
+      failed_when: false
+
+    - name: Install mise tools
+      command: mise install --yes
+      register: mise_install
+      changed_when: mise_install.stderr is search('installed [1-9]')
+      when: mise_check.rc == 0

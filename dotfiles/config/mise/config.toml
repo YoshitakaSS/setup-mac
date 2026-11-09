@@ -1,0 +1,12 @@
+# mise のグローバル設定 (~/.config/mise/config.toml にリンクされる)
+# プロジェクトごとのバージョンは各リポジトリの mise.toml / .nvmrc / .node-version / .python-version で指定する
+[tools]
+node = "lts"
+
+# 必要になったら追加する
+# python = "3.13"
+# go = "latest"
+
+[settings]
+# .nvmrc / .node-version / .python-version も読む
+idiomatic_version_file_enable_tools = ["node", "python"]

@@ -22,5 +22,10 @@ function ghql() {
 bind -x '"\201": ghql'
 bind '"\C-g":"\201\C-m"'
 
-export GOPATH=$(go env GOPATH)
-export PATH="$PATH:$GOPATH/bin"
+# mise (バージョン管理)
+command -v mise >/dev/null 2>&1 && eval "$(mise activate bash)"
+
+if command -v go >/dev/null 2>&1; then
+    export GOPATH=$(go env GOPATH)
+    export PATH="$PATH:$GOPATH/bin"
+fi
