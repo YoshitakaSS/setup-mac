@@ -1,6 +1,9 @@
 # Homebrew (Apple Silicon) / MacPorts (Intel)
 [ -f "$HOME/dotfiles/common/.package_manager" ] && source "$HOME/dotfiles/common/.package_manager"
 
+# ユーザー単位でインストールしたコマンド (Claude Code の claude など)
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
+
 # mise (バージョン管理)。ログインシェル用に shims を通し、対話シェルでは .bashrc の mise activate が優先される
 command -v mise >/dev/null 2>&1 && eval "$(mise activate bash --shims)"
 
