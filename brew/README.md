@@ -7,7 +7,8 @@ Intel Mac は Homebrew のサポート対象外のため、`install-casks.sh` �
 bash brew/install-casks.sh
 ```
 
-Homebrew 本体は公式 GitHub Releases の `Homebrew.pkg` (バージョン固定) を、SHA256・Apple 公証・署名者 (Team ID) を検証してから入れる。
+Homebrew 本体は初回のみ、公式 GitHub Releases の `Homebrew.pkg` (バージョン固定) を SHA256・Apple 公証・署名者 (Team ID) で検証してから入れる。
+導入後の本体の更新は `brew update` で行われるため、バージョン固定が効くのは初回インストールだけ。
 
 #### アプリを追加したとき
 

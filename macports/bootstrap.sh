@@ -42,7 +42,8 @@ fi
 if [ ! -x /opt/local/bin/port ]; then
   echo "==> MacPorts ${MP_VER} をインストール"
   curl -fL --proto '=https' --tlsv1.2 -o "$WORK/$MP_PKG" "https://github.com/macports/macports-base/releases/download/v${MP_VER}/${MP_PKG}"
-  # 改ざん検知: ハッシュ固定 + Apple 公証 + MacPorts 署名者 (Team ID) を確認してから入れる
+  # 初回に入れる pkg の検証: ハッシュ固定 + Apple 公証 + 署名者 (Team ID)
+  # (導入後の本体更新は port selfupdate が行うため、この固定が効くのは初回のみ)
   echo "${MP_SHA256}  $WORK/$MP_PKG" | shasum -a 256 -c -
   spctl -a -t install "$WORK/$MP_PKG"
   pkgutil --check-signature "$WORK/$MP_PKG" | grep -q "Developer ID Installer: .*(${MP_TEAM_ID})" \
@@ -53,13 +54,13 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 port -v selfupdate
 
 # 3. パッケージ (旧 Brewfile の brew 部分 + gh, ansible)
+#    zsh プラグインは zinit (.plugin.zsh) で管理するためここでは入れない
 PORTS=(
   gh
   py313-ansible
   bat bzip2 coreutils libidn2 gnutls emacs curl direnv eza fd ghq icu
-  librsvg graphviz grep jq libxml2 xmlsec mysql8 nkf nodejs22 npm10
-  oath-toolkit peco php74 php80 plantuml ripgrep starship tree wget
-  zsh-autosuggestions zsh-completions zsh-syntax-highlighting jnv blueutil
+  librsvg graphviz grep jq libxml2 xmlsec mysql8 nkf nodejs24 npm11
+  oath-toolkit peco php84 plantuml ripgrep starship tree wget jnv blueutil
 )
 echo "==> port install ${PORTS[*]}"
 FAILED=()
@@ -69,11 +70,12 @@ done
 
 port select --set python3 python313 || true
 port select --set ansible py313-ansible || true
-port select --set php php80 || true
+port select --set php php84 || true
 port select --set mysql mysql8 || true
 
 echo
 echo "==> 完了"
 if [ ${#FAILED[@]} -gt 0 ]; then
-  echo "失敗したパッケージ: ${FAILED[*]}"
+  echo "失敗したパッケージ: ${FAILED[*]}" >&2
+  exit 1
 fi

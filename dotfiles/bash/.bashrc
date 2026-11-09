@@ -22,5 +22,7 @@ function ghql() {
 bind -x '"\201": ghql'
 bind '"\C-g":"\201\C-m"'
 
-command -v go >/dev/null 2>&1 && export GOPATH=$(go env GOPATH)
-export PATH="$PATH:$GOPATH/bin"
+if command -v go >/dev/null 2>&1; then
+    export GOPATH=$(go env GOPATH)
+    export PATH="$PATH:$GOPATH/bin"
+fi

@@ -12,14 +12,15 @@ export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
 command -v goenv >/dev/null 2>&1 && eval "$(goenv init -)"
 
-export PATH="$GOROOT/bin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
+[ -n "$GOROOT" ] && export PATH="$GOROOT/bin:$PATH"
+[ -n "$GOPATH" ] && export PATH="$PATH:$GOPATH/bin"
 export GO111MODULE=on 
 
 export DOCKER_CLIENT_TIMEOUT=300
 export COMPOSE_HTTP_TIMEOUT=300
-# PHP は MacPorts の `port select --set php php80` で切り替え
-export PATH=$HOME/.nodebrew/current/bin:$PATH
+# PHP は MacPorts の `port select --set php php84` で切り替え
 
 # Homebrew (Apple Silicon の GUI アプリ用)。CLI は MacPorts を優先するため PATH の末尾に置く
-[ -x /opt/homebrew/bin/brew ] && export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+if [ -x /opt/homebrew/bin/brew ]; then
+    export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+fi

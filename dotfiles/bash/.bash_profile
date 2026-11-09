@@ -4,8 +4,8 @@ export MANPATH="/opt/local/share/man:$MANPATH"
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
-export PATH="$PATH:~/flutter/bin"
+[ -n "$GOPATH" ] && export PATH="$PATH:$GOPATH/bin"
+[ -d "$HOME/flutter/bin" ] && export PATH="$PATH:$HOME/flutter/bin"
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 COMMON_PROFILE=$HOME/.profile_common
@@ -26,4 +26,6 @@ command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
 command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
 
 # Homebrew (Apple Silicon の GUI アプリ用)。CLI は MacPorts を優先するため PATH の末尾に置く
-[ -x /opt/homebrew/bin/brew ] && export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+if [ -x /opt/homebrew/bin/brew ]; then
+    export PATH="$PATH:/opt/homebrew/bin:/opt/homebrew/sbin"
+fi

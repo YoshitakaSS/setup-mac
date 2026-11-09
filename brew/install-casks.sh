@@ -27,7 +27,8 @@ if [ ! -x "$BREW" ]; then
   trap 'rm -rf "$WORK"' EXIT
   PKG="$WORK/Homebrew.pkg"
   curl -fL --proto '=https' --tlsv1.2 -o "$PKG" "https://github.com/Homebrew/brew/releases/download/${HB_VER}/Homebrew.pkg"
-  # 改ざん検知: ハッシュ固定 + Apple 公証 + Homebrew 署名者 (Team ID) を確認してから入れる
+  # 初回に入れる pkg の検証: ハッシュ固定 + Apple 公証 + 署名者 (Team ID)
+  # (導入後の本体更新は brew update が行うため、この固定が効くのは初回のみ)
   echo "${HB_SHA256}  $PKG" | shasum -a 256 -c -
   spctl -a -t install "$PKG"
   pkgutil --check-signature "$PKG" | grep -q "Developer ID Installer: .*(${HB_TEAM_ID})" \

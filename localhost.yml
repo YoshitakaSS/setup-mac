@@ -5,7 +5,6 @@
 
   # パッケージは MacPorts (macports/bootstrap.sh) で導入済みの前提。ここでは設定ファイルのみ扱う
   vars:
-    repo_dotfiles: "{{ playbook_dir }}/dotfiles"
     links:
       - { src: "{{ playbook_dir }}/dotfiles", dest: "~/dotfiles" }
       - { src: "~/dotfiles/bash/.bash_profile", dest: "~/.bash_profile" }

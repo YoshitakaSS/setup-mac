@@ -3,7 +3,8 @@
 ### Install packages (MacPorts / Intel・Apple Silicon 共通)
 
 Homebrew の代わりに MacPorts を使う。Xcode Command Line Tools と MacPorts 本体
-(署名・公証・SHA256 を検証) を入れた上で、gh / ansible / 各種 CLI をインストールする。
+(初回インストール時に pkg の署名・公証・SHA256 を検証) を入れた上で、gh / ansible / 各種 CLI をインストールする。
+導入後の MacPorts 本体の更新は `port selfupdate` で行われる。パッケージの導入に1つでも失敗すると終了コード 1 で終わる。
 
 ```bash
 sudo bash macports/bootstrap.sh

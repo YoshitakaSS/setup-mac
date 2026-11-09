@@ -58,13 +58,13 @@ setopt hist_reduce_blanks
 
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/y-shitara/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/y-shitara/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/y-shitara/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/y-shitara/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
 # Added by Antigravity
-export PATH="/Users/ys/.antigravity/antigravity/bin:$PATH"
+[ -d "$HOME/.antigravity/antigravity/bin" ] && export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 
 # Ghosttyターミナル開発レイアウト
 # 使い方: tcode [ディレクトリ]
