@@ -62,7 +62,7 @@ port -v selfupdate
 # 3. パッケージ (旧 Brewfile の brew 部分 + gh, ansible)
 #    一覧は brew/.Brewfile の CLI と揃える。違い: icu (Homebrew では依存で自動導入)、py313-ansible (Homebrew では ansible)
 #    zsh プラグインは zinit (.plugin.zsh) で管理するためここでは入れない
-#    Node.js / 開発用 Python / Go は mise で管理する (dotfiles/config/mise/config.toml)
+#    Node.js / 開発用 Python / Go は mise で管理する (dotfiles リポジトリの home/.config/mise/config.toml)
 #    py313-ansible が依存する MacPorts の Python はシステム用として残す
 PORTS=(
   gh
