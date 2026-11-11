@@ -54,6 +54,7 @@ ansible-playbook -i ./etc/ansible/hosts localhost.yml
 1. dotfiles を `~/Repository/dotfiles` に clone する (既にあれば更新しない。場所は `-e dotfiles_dir=...` で変えられる)
 2. 以前この repo の `dotfiles/` を指していた `~/dotfiles` と `~/.iterm_profile` のリンクが残っていれば外す
 3. dotfiles の `scripts/install.sh` でリンクする。既存の実ファイルと別のリンクは `~/.local/state/dotfiles/backups/` に退避される
+   - `~/.claude` が別のハーネスへの symlink になっている Mac では install.sh が何も変えずに中止する。Claude Code の設定を別の置き先に入れるときは `-e dotfiles_claude_dir=~/.claude-personal` を付け、`CLAUDE_CONFIG_DIR=~/.claude-personal claude` で起動する
 4. mise のグローバル設定 (dotfiles の `home/.config/mise/config.toml`) にあるツールを `mise install` で入れる
 
 ### Node.js / Python / Go (mise)

@@ -10,6 +10,10 @@
   vars:
     dotfiles_repo: "https://github.com/YoshitakaSS/dotfiles.git"
     dotfiles_dir: "{{ ansible_env.HOME }}/Repository/dotfiles"
+    # Claude Code の設定 (dotfiles の home/.claude) の置き先。空なら ${CLAUDE_CONFIG_DIR:-~/.claude}。
+    # ~/.claude が別のハーネスへの symlink になっている Mac (会社の Mac など) では install.sh が中止するので、
+    # -e dotfiles_claude_dir=~/.claude-personal のように別の置き先を指定する
+    dotfiles_claude_dir: ""
     # 以前このリポジトリの dotfiles/ を指していたリンク。dotfiles/ を消したので、残っていれば外す
     stale_links:
       - "{{ ansible_env.HOME }}/dotfiles"
@@ -38,7 +42,8 @@
 
     # 既存の実ファイル・別のリンクは ~/.local/state/dotfiles/backups/ に退避してからリンクする
     - name: Link dotfiles
-      command: "{{ dotfiles_dir }}/scripts/install.sh"
+      command:
+        argv: "{{ [dotfiles_dir ~ '/scripts/install.sh'] + (['--claude-dir', dotfiles_claude_dir | expanduser] if dotfiles_claude_dir else []) }}"
       register: dotfiles_install
       changed_when: "dotfiles_install.stdout is search('  (link|backup): ')"
 
