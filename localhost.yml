@@ -4,51 +4,48 @@
   connection: local
 
   # パッケージは導入済みの前提 (Apple Silicon: brew/bootstrap.sh / Intel: macports/bootstrap.sh)
-  # ここでは設定ファイルのリンクと mise のツール導入のみ扱う
+  # 設定ファイルの中身は dotfiles リポジトリにある。ここでは dotfiles を取得して install.sh でリンクし、mise のツールを入れる
   environment:
     PATH: "/opt/homebrew/bin:/opt/local/bin:{{ ansible_env.PATH }}"
   vars:
-    links:
-      - { src: "{{ playbook_dir }}/dotfiles", dest: "~/dotfiles" }
-      - { src: "~/dotfiles/bash/.bash_profile", dest: "~/.bash_profile" }
-      - { src: "~/dotfiles/bash/.bashrc", dest: "~/.bashrc" }
-      - { src: "~/dotfiles/iterm/.iterm_profile", dest: "~/.iterm_profile" }
-      - { src: "~/dotfiles/zsh/.zshrc", dest: "~/.zshrc" }
-      - { src: "~/dotfiles/zsh/.zprofile", dest: "~/.zprofile" }
-      - { src: "~/dotfiles/config/mise/config.toml", dest: "~/.config/mise/config.toml" }
-      - { src: "~/dotfiles/config/starship.toml", dest: "~/.config/starship.toml" }
+    dotfiles_repo: "https://github.com/YoshitakaSS/dotfiles.git"
+    dotfiles_dir: "{{ ansible_env.HOME }}/Repository/dotfiles"
+    # Claude Code の設定 (dotfiles の home/.claude) の置き先。空なら ${CLAUDE_CONFIG_DIR:-~/.claude}。
+    # ~/.claude が別のハーネスへの symlink になっている Mac (会社の Mac など) では install.sh が中止するので、
+    # -e dotfiles_claude_dir=~/.claude-personal のように別の置き先を指定する
+    dotfiles_claude_dir: ""
+    # 以前このリポジトリの dotfiles/ を指していたリンク。dotfiles/ を消したので、残っていれば外す
+    stale_links:
+      - "{{ ansible_env.HOME }}/dotfiles"
+      - "{{ ansible_env.HOME }}/.iterm_profile"
 
   tasks:
-    - name: Make config
-      file:
-        path: ~/.config
-        state: directory
-        mode: 0700
+    - name: Clone dotfiles
+      git:
+        repo: "{{ dotfiles_repo }}"
+        dest: "{{ dotfiles_dir }}"
+        update: false
 
-    - name: Make mise config dir
-      file:
-        path: ~/.config/mise
-        state: directory
-        mode: 0700
-
-    - name: Check existing link destinations
+    - name: Check old links into setup-mac
       stat:
-        path: "{{ item.dest }}"
+        path: "{{ item }}"
         follow: false
-      loop: "{{ links }}"
-      register: dest_stat
+      loop: "{{ stale_links }}"
+      register: stale_stat
 
-    - name: Back up existing regular files before linking
-      command: mv "{{ item.stat.path }}" "{{ item.stat.path }}.bak.{{ ansible_date_time.epoch }}"
-      loop: "{{ dest_stat.results }}"
-      when: item.stat.exists and not item.stat.islnk
-
-    - name: Create symbolic links
+    - name: Remove old links into setup-mac
       file:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        state: link
-      loop: "{{ links }}"
+        path: "{{ item.stat.path }}"
+        state: absent
+      loop: "{{ stale_stat.results }}"
+      when: item.stat.exists and item.stat.islnk
+
+    # 既存の実ファイル・別のリンクは ~/.local/state/dotfiles/backups/ に退避してからリンクする
+    - name: Link dotfiles
+      command:
+        argv: "{{ [dotfiles_dir ~ '/scripts/install.sh'] + (['--claude-dir', dotfiles_claude_dir | expanduser] if dotfiles_claude_dir else []) }}"
+      register: dotfiles_install
+      changed_when: "dotfiles_install.stdout is search('  (link|backup): ')"
 
     # ~/.config/mise/config.toml に書いたツール (node など) を入れる
     - name: Check mise

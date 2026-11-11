@@ -1,5 +1,7 @@
 ## Set up Mac
 
+Mac の構築手順 (パッケージ・iTerm のプロファイル・Chrome 拡張の一覧) を置く。シェルや git などの設定ファイルの中身は [dotfiles](https://github.com/YoshitakaSS/dotfiles) にあり、下の playbook が dotfiles を clone して `scripts/install.sh` でリンクする。
+
 Mac の種類でパッケージマネージャを分ける。
 
 | | パッケージマネージャ | スクリプト | 入るもの |
@@ -27,7 +29,7 @@ CLI の一覧は `brew/.Brewfile` と `macports/bootstrap.sh` で揃える。
    ```
 
 2. ターミナルを開き直して GitHub にログインし、リポジトリを clone する
-   (dotfiles のリンク前なので、Apple Silicon では先に Homebrew の PATH を通す)
+   (dotfiles のリンク前なので、Apple Silicon では先に Homebrew の PATH を通す。dotfiles は private なので、playbook の clone にもこのログインを使う)
 
    ```bash
    eval "$(/opt/homebrew/bin/brew shellenv)"   # Apple Silicon のみ
@@ -35,7 +37,7 @@ CLI の一覧は `brew/.Brewfile` と `macports/bootstrap.sh` で揃える。
    cd ~/Repository && gh repo clone YoshitakaSS/setup-mac && rm -rf setup-mac-master
    ```
 
-3. dotfiles のリンクと mise のツールを入れる (詳細は下記 playbook exec)
+3. dotfiles を取得してリンクし、mise のツールを入れる (詳細は下記 playbook exec)
 
    ```bash
    cd ~/Repository/setup-mac
@@ -47,13 +49,19 @@ CLI の一覧は `brew/.Brewfile` と `macports/bootstrap.sh` で揃える。
 ansible-playbook -i ./etc/ansible/hosts localhost.yml
 ```
 
-dotfiles のリンク作成に加え、mise のグローバル設定 (`dotfiles/config/mise/config.toml`) にあるツールを `mise install` で入れる。
+次の順に行う。
+
+1. dotfiles を `~/Repository/dotfiles` に clone する (既にあれば更新しない。場所は `-e dotfiles_dir=...` で変えられる)
+2. 以前この repo の `dotfiles/` を指していた `~/dotfiles` と `~/.iterm_profile` のリンクが残っていれば外す
+3. dotfiles の `scripts/install.sh` でリンクする。既存の実ファイルと別のリンクは `~/.local/state/dotfiles/backups/` に退避される
+   - `~/.claude` が別のハーネスへの symlink になっている Mac では install.sh が何も変えずに中止する。Claude Code の設定を別の置き先に入れるときは `-e dotfiles_claude_dir=~/.claude-personal` を付け、`CLAUDE_CONFIG_DIR=~/.claude-personal claude` で起動する
+4. mise のグローバル設定 (dotfiles の `home/.config/mise/config.toml`) にあるツールを `mise install` で入れる
 
 ### Node.js / Python / Go (mise)
 
 言語ランタイムのバージョンは [mise](https://mise.jdx.dev/) で管理する (nvm / pyenv / goenv の代わり)。
 
-- グローバル: `dotfiles/config/mise/config.toml` (既定は `node = "lts"`)
+- グローバル: dotfiles の `home/.config/mise/config.toml` (既定は `node = "lts"`)
 - プロジェクトごと: 各リポジトリの `mise.toml`、または `.nvmrc` / `.node-version` / `.python-version`
 
 ```bash
@@ -63,25 +71,6 @@ mise use -g python@3.13 # グローバルに追加
 
 ansible が使う Python は MacPorts のもの (`py313-ansible` の依存) で、mise とは別。
 
-If you run the above...
+### iTerm2
 
-#### Check symbolic links
-
-```bash
-  inode Permissions Size User      Date Modified Name
-
-1337903 lrwxr-xr-x    46 user 17 4 00:09     dotfiles -> /Users/Your/Repository/setup-mac/dotfiles
-1339729 lrwxr-xr-x    19 user 17 4 00:19     .zshrc -> dotfiles/zsh/.zshrc
-```
-
-### About Alias
-
-```
-├── dotfiles
-│   ├── bash
-│   │   ├── .bash_profile
-│   │   └── .bashrc
-│   ├── common
-│   │   ├── .alias // common pc alias
-│   │   └── .custom_alias // custom pc alias
-```
+プロファイルは `iterm/iterm_profile.json` を Settings > Profiles > Other Actions... > Import JSON Profiles... で読み込む。全体の設定は Settings > General > Settings > Load settings from a custom folder or URL に `iterm/` を指定する (`com.googlecode.iterm2.plist` を読む)。背景画像は `iterm/assets/` にある。
