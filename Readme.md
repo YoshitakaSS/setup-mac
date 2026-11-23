@@ -103,8 +103,14 @@ curl -fsSL https://claude.ai/install.sh | bash
 1. mac-claude-server を clone する。このリポジトリだけを読める、期限の短い fine-grained token をパスワード欄に入れ、終わったら失効させる。常駐させる `RC_DIR` とは別の場所に置く (`docs/plan.md` 4.5・README)
 2. `claude auth login` で私用アカウントにログインし、AI 用アカウントの token を `gh auth login --with-token` に渡して `gh auth setup-git` を実行する
 3. 常駐させる私用リポジトリを clone し、`bash scripts/install.sh` を実行して、`~/.config/claude-rc/env` の `RC_DIR` を書き換える
-4. `RC_DIR` で `claude remote-control` を手で1回起動し、trust・Remote Control の有効化・spawn mode に答える (`docs/plan.md` 5.5)。初回の権限モードは `manual`
-5. `install.sh` が表示する `launchctl bootstrap` で登録する。状態の確かめ方は `docs/plan.md` 5.6
+4. Keychain がスリープや放置でロックされないようにする。`security set-keychain-settings ~/Library/Keychains/login.keychain-db` をオプション無しで実行し、`security show-keychain-info ~/Library/Keychains/login.keychain-db` で確かめる (`docs/plan.md` 4.2)。ロックされると無人のまま認証が切れる
+5. SSH で専用ユーザーに入れるようにする。普段使いの Mac の公開鍵を、専用ユーザーの `~/.ssh/authorized_keys` (ディレクトリ 700・ファイル 600) に、この Mac の画面の前で貼る。`admin-setup.sh` がパスワードログインを止めているので、`ssh-copy-id` は通らない。入った先では `tmux attach -t claude-rc` だけを使い、`tmux new` は使わない (`docs/plan.md` 6.1)。AI がこのファイルに書き足せるリスクは `docs/plan.md` 4.4 にある
+6. `RC_DIR` で `claude remote-control --permission-mode manual` を手で1回起動し、trust・Remote Control の有効化・spawn mode に答える (`docs/plan.md` 5.5)。`--permission-mode` を付けないと、承認のプロンプトが出ないことがある (`docs/plan.md` 6.2)
+7. 登録の前に、`docs/plan.md` 8章の Phase 1 を確かめる
+   - `RC_DIR` で対話の `claude` を起動し、`/permissions` に managed の deny が出ること
+   - `/config` で「Push when actions required」を有効にし、スマホの Claude アプリに同じアカウントでログインして、承認の通知が届くこと (`docs/plan.md` 6.1)
+   - サンドボックスの中で `gh auth status` を実行し、エラーに `x509: OSStatus -26276` が出ないこと (`docs/plan.md` 6.3)
+8. `install.sh` が表示する `launchctl bootstrap` で登録する。状態の確かめ方は `docs/plan.md` 5.6
 
 ### playbook exec
 ```bash
