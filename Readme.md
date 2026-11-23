@@ -100,7 +100,12 @@ echo 'export PATH="$HOME/.local/bin:/opt/homebrew/bin:/opt/local/bin:$PATH"' >> 
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-1. mac-claude-server を clone する。このリポジトリだけを読める、期限の短い fine-grained token をパスワード欄に入れ、終わったら失効させる。常駐させる `RC_DIR` とは別の場所に置く (`docs/plan.md` 4.5・README)
+1. mac-claude-server を clone する。このリポジトリだけを読める、期限の短い fine-grained token をパスワード欄に入れ、終わったら失効させる。常駐させる `RC_DIR` とは別の場所に置く (`docs/plan.md` 4.5・README)。git が token を Keychain に保存しないよう、資格情報の保存を切って clone する
+
+   ```bash
+   git -c credential.helper= clone https://github.com/YoshitakaSS/mac-claude-server.git ~/mac-claude-server
+   ```
+
 2. `claude auth login` で私用アカウントにログインし、AI 用アカウントの token を `gh auth login --with-token` に渡して `gh auth setup-git` を実行する
 3. 常駐させる私用リポジトリを clone し、`bash scripts/install.sh` を実行して、`~/.config/claude-rc/env` の `RC_DIR` を書き換える
 4. Keychain がスリープや放置でロックされないようにする。`security set-keychain-settings ~/Library/Keychains/login.keychain-db` をオプション無しで実行し、`security show-keychain-info ~/Library/Keychains/login.keychain-db` で確かめる (`docs/plan.md` 4.2)。ロックされると無人のまま認証が切れる
