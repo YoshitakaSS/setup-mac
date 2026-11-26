@@ -4,7 +4,7 @@ Mac の種類でパッケージマネージャを分ける。
 
 | | パッケージマネージャ | スクリプト | 入るもの |
 |---|---|---|---|
-| Apple Silicon (M1〜M4 など) | Homebrew | `bash brew/bootstrap.sh` (sudo なし) | CLI・GUI アプリ・VS Code 拡張 (`brew/.Brewfile`) |
+| Apple Silicon (M1〜M4 など) | Homebrew | `bash brew/bootstrap.sh` (sudo なし) | CLI・GUI アプリ・VS Code 拡張 (`brew/.Brewfile`)。`--server` を付けると CLI だけ |
 | Intel | MacPorts | `sudo bash macports/bootstrap.sh` | CLI のみ (GUI アプリは個別にインストール) |
 
 Intel は MacPorts を使う。Homebrew では Intel が最下位のサポート段階 (Tier 3) になり、ビルド済みパッケージの提供も止まっていて、
@@ -22,7 +22,9 @@ CLI の一覧は `brew/.Brewfile` と `macports/bootstrap.sh` で揃える。
    curl -L https://github.com/YoshitakaSS/setup-mac/archive/refs/heads/master.tar.gz | tar xz
    cd setup-mac-master
 
+   # 次のどれか 1 行だけを実行する
    bash brew/bootstrap.sh            # Apple Silicon
+   bash brew/bootstrap.sh --server   # Apple Silicon で、Claude Code の常駐専用にする (GUI アプリと VS Code 拡張を入れない)
    sudo bash macports/bootstrap.sh   # Intel
    ```
 
@@ -49,8 +51,8 @@ CLI の一覧は `brew/.Brewfile` と `macports/bootstrap.sh` で揃える。
 | 順 | 誰で | 何を | 参照 |
 |---|---|---|---|
 | 0 | 管理者 | macOS の初期設定と事前の判断 | 下の 0 |
-| 1 | 管理者 | setup-mac (上の「新しい Mac でのセットアップ」) | 上の 1〜3 |
-| 2 | 管理者 | tmux・Claude Code の導入、SSH 公開鍵の登録 | 下の 2 |
+| 1 | 管理者 | setup-mac (上の「新しい Mac でのセットアップ」)。管理者も普段使いするなら通常版、常駐専用なら Apple Silicon は `bash brew/bootstrap.sh --server` | 上の 1〜3 |
+| 2 | 管理者 | Claude Code の導入、SSH 公開鍵の登録 | 下の 2 |
 | 3 | 管理者 | mac-claude-server を clone し、`admin-setup.sh` を実行 | 下の 3 |
 | 4 | 管理者 + GitHub の画面 | AI 用 GitHub アカウント・ブランチ保護・token | `docs/plan.md` 4.5 |
 | 5 | 管理者 | `install-managed.sh` | 下の 5 |
@@ -63,10 +65,11 @@ CLI の一覧は `brew/.Brewfile` と `macports/bootstrap.sh` で揃える。
 - FileVault は初期設定で聞かれる。再起動のたびに人が触らずに戻したいなら (方式 A)、有効にしない。有効にするなら方式 B。どちらにするかは `docs/plan.md` 4.2 で決める
 - 方式 A は、システム設定の「ユーザとグループ」で専用ユーザーの自動ログインを設定する (専用ユーザーを作った後。どのスクリプトも設定しない。LaunchAgent はログインしないと動かない)
 
-**2. tmux・Claude Code・SSH 公開鍵 (管理者ユーザー)**
+**2. Claude Code・SSH 公開鍵 (管理者ユーザー)**
+
+tmux は手順 1 のパッケージに入っている (`admin-setup.sh` の前提)。
 
 ```bash
-brew install tmux        # Apple Silicon。Brewfile に無い。Intel は admin-setup.sh が MacPorts で入れる
 curl -fsSL https://claude.ai/install.sh | bash   # Claude Code。~/.local/bin/claude に入る
 claude auth login        # 管理者ユーザーの分。私用アカウントでログインする
 ```
