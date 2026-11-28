@@ -1,8 +1,17 @@
 #!/bin/bash
 # Apple Silicon 用: Xcode CLT + Homebrew + CLI / GUI アプリ / VS Code 拡張のインストール
 # Intel Mac は macports/bootstrap.sh を使う
-# 実行: bash brew/bootstrap.sh   (sudo を付けない。CLT・Homebrew 本体の導入時のみパスワードを聞かれる)
+# 実行: bash brew/bootstrap.sh [--server]   (sudo を付けない。CLT・Homebrew 本体の導入時のみパスワードを聞かれる)
+#   --server: CLI だけを入れる (GUI アプリと VS Code 拡張を入れない)。Claude Code の常駐専用にする Mac 向け
 set -euo pipefail
+
+SERVER=0
+for arg in "$@"; do
+  case $arg in
+    --server) SERVER=1 ;;
+    *) echo "使い方: bash brew/bootstrap.sh [--server]" >&2; exit 1 ;;
+  esac
+done
 
 # uname -m は Rosetta 下のターミナルだと x86_64 を返すため、CPU 自体を sysctl で判定する
 if [ "$(sysctl -in hw.optional.arm64)" != "1" ]; then
@@ -51,7 +60,12 @@ if [ ! -x "$BREW" ]; then
   sudo installer -pkg "$PKG" -target /
 fi
 
-# 3. CLI / GUI アプリ / VS Code 拡張
-echo "==> brew bundle"
+# 3. CLI / GUI アプリ / VS Code 拡張 (--server では CLI だけ。.Brewfile がこの環境変数で分岐する)
+if [ "$SERVER" = 1 ]; then
+  export HOMEBREW_SETUP_MAC_SERVER=1
+  echo "==> brew bundle (サーバー用: CLI のみ)"
+else
+  echo "==> brew bundle"
+fi
 # Rosetta 下のターミナルから実行されても arm64 の Homebrew として動かす
 arch -arm64 "$BREW" bundle --file "$SCRIPT_DIR/.Brewfile"

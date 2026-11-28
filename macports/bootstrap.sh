@@ -69,7 +69,7 @@ PORTS=(
   py313-ansible
   bat bzip2 coreutils libidn2 gnutls emacs curl direnv eza fd ghq icu
   librsvg graphviz grep jq libxml2 xmlsec mysql8 nkf mise
-  oath-toolkit peco php84 plantuml ripgrep starship tree wget jnv blueutil
+  oath-toolkit peco php84 plantuml ripgrep starship tree wget jnv blueutil tmux
 )
 echo "==> port install ${PORTS[*]}"
 FAILED=()
